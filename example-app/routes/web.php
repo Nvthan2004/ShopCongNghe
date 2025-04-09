@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
-
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +36,19 @@ Route::get('/admin/brands/{id}/edit', [BrandController::class, 'edit'])->name('b
 Route::put('/admin/brands/{id}', [BrandController::class, 'update'])->name('brands.update');
 
 
+//List Category
+Route::get('/admin/categorys', [CategoryController::class, 'list_category'])->name('admin.category');
+
+//add Category
+Route::get('/admin/add_category', [CategoryController::class, 'add_category'])->name('admin.add_category');
+Route::post('/admin/add_category', [CategoryController::class, 'create_cate'])->name('categorys.create_cate');
+
+//delete cate
+Route::delete('/admin/categorys/{id}', [CategoryController::class, 'destroy_category'])->name('categorys.destroy_category');
+
+//update cate
+Route::get('/admin/categorys/{id}/edit', [CategoryController::class, 'edit_cate'])->name('categorys.edit_cate');
+Route::put('/admin/categorys/{id}', [CategoryController::class, 'update_cate'])->name('categorys.update_cate');
 
 Route::get('login', [CrudUserController::class, 'login'])->name('login');
 Route::post('login', [CrudUserController::class, 'authUser'])->name('user.authUser');

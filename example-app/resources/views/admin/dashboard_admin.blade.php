@@ -82,7 +82,7 @@
         <a href="{{ route('admin.home') }}">Dashboard</a>
         <a href="#">Users</a>
         <a href="{{ route('admin.product') }}">Products</a>
-        <a href="#">Categorys</a>
+        <a href="{{ route('admin.category')}}">Categorys</a>
         <a href="{{ route('admin.brand') }}">Brands</a>
         <a href="#">Revenue</a>
         <a href="#">Settings</a>
