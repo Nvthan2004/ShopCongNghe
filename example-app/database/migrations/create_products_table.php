@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('quantity');                     // Số lượng trong kho
             $table->string('image')->nullable();             // Ảnh đại diện
             $table->foreignId('brand_id')->constrained('brands')->onDelete('cascade');     // Thương hiệu
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');   // Loại sản phẩm
+            $table->foreignId('category_id')->constrained('categorys')->onDelete('cascade');   // Loại sản phẩm
             $table->float('rating')->default(0);             // Điểm đánh giá trung bình
             $table->integer('reviews_count')->default(0);    // Số lượt đánh giá
             $table->boolean('is_featured')->default(false);  // Sản phẩm nổi bật?

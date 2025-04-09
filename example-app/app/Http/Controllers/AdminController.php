@@ -20,5 +20,14 @@ class AdminController extends Controller
     public function crud_product(){
         return view('admin.crud_product.list_product');
     }
+    public function crud_brand(){
+
+        return view('admin.crud_brand.list_brand');
+    }
+    public function crud_category(){
+
+        return view('admin.crud_category.list_category');
+    }
+    
     
 }
