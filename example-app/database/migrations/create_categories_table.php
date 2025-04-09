@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100)->unique();        // Tên danh mục
             $table->string('slug', 100)->unique();        // Slug để SEO URL (ví dụ: dien-thoai)
-            $table->text('description')->nullable();      // Mô tả ngắn
             $table->string('image')->nullable();          // Ảnh thumbnail danh mục (nếu cần)
-            $table->boolean('is_active')->default(true);  // Trạng thái hiển thị
             $table->timestamps();
         });
     }

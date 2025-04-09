@@ -6,6 +6,18 @@ use App\Models\Brand;
 
 class BrandController extends Controller
 {
+
+    public function add_brand(){
+        return view('admin.crud_brand.add_brand');
+    }
+
+    public function list_brand()
+{
+    $brands = Brand::all(); // Lấy tất cả bản ghi từ bảng brands
+    return view('admin.crud_brand.list_brand', compact('brands'));
+}
+
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
