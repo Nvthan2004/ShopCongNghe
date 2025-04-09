@@ -1,23 +1,21 @@
-@extends('admin.dashboard_admin')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 
 <div class="container mt-5">
-    <h1 class="mb-4">Edit Brand</h1>
-    <form action="{{ route('brands.update', $brand->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-
+    <h1 class="mb-4">Add Brand</h1>
+    <form action="<?php echo e(route('brands.store')); ?>" method="POST" enctype="multipart/form-data">
+        <?php echo csrf_field(); ?>
         <!-- Name -->
         <div class="mb-3">
             <label for="name" class="form-label">Brand Name</label>
-            <input type="text" class="form-control" id="name" name="name" required value="{{ $brand->name }}">
+            <input type="text" class="form-control" id="name" name="name" required placeholder="Enter brand name">
         </div>
-
+        
         <!-- Slug (Readonly) -->
         <div class="mb-3">
             <label for="slug" class="form-label">Slug</label>
-            <input type="text" class="form-control" id="slug" name="slug" value="{{ $brand->slug }}" readonly>
+            <input type="text" class="form-control" id="slug" name="slug" readonly>
         </div>
 
         <!-- Logo -->
@@ -25,20 +23,16 @@
             <label for="logo" class="form-label">Logo</label>
             <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
         </div>
-
-        <!-- Preview -->
-        <div class="mb-3">
+          <!-- Preview -->
+          <div class="mb-3">
             <label class="form-label">Preview</label>
             <div id="preview-container">
-                <img id="logo-preview" 
-                     src="{{ $brand->logo ? asset('storage/' . $brand->logo) : '#' }}" 
-                     alt="Logo Preview" 
-                     style="display: {{ $brand->logo ? 'block' : 'none' }}; max-height: 200px; margin-top: 10px;">
+                <img id="logo-preview" src="#" alt="Logo Preview" style="display: none; max-height: 200px; margin-top: 10px;">
             </div>
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Update Brand</button>
+        <button type="submit" class="btn btn-primary">Add Brand</button>
     </form>
 </div>
 
@@ -79,4 +73,6 @@
     });
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\HK6\Back-end 2\Nhóm B\example-app\resources\views/admin/crud_brand/add_brand.blade.php ENDPATH**/ ?>

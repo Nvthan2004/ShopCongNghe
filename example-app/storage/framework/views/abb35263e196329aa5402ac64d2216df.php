@@ -1,23 +1,23 @@
-@extends('admin.dashboard_admin')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 
 <div class="container mt-5">
     <h1 class="mb-4">Edit Brand</h1>
-    <form action="{{ route('brands.update', $brand->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
+    <form action="<?php echo e(route('brands.update', $brand->id)); ?>" method="POST" enctype="multipart/form-data">
+        <?php echo csrf_field(); ?>
+        <?php echo method_field('PUT'); ?>
 
         <!-- Name -->
         <div class="mb-3">
             <label for="name" class="form-label">Brand Name</label>
-            <input type="text" class="form-control" id="name" name="name" required value="{{ $brand->name }}">
+            <input type="text" class="form-control" id="name" name="name" required value="<?php echo e($brand->name); ?>">
         </div>
 
         <!-- Slug (Readonly) -->
         <div class="mb-3">
             <label for="slug" class="form-label">Slug</label>
-            <input type="text" class="form-control" id="slug" name="slug" value="{{ $brand->slug }}" readonly>
+            <input type="text" class="form-control" id="slug" name="slug" value="<?php echo e($brand->slug); ?>" readonly>
         </div>
 
         <!-- Logo -->
@@ -31,9 +31,9 @@
             <label class="form-label">Preview</label>
             <div id="preview-container">
                 <img id="logo-preview" 
-                     src="{{ $brand->logo ? asset('storage/' . $brand->logo) : '#' }}" 
+                     src="<?php echo e($brand->logo ? asset('storage/' . $brand->logo) : '#'); ?>" 
                      alt="Logo Preview" 
-                     style="display: {{ $brand->logo ? 'block' : 'none' }}; max-height: 200px; margin-top: 10px;">
+                     style="display: <?php echo e($brand->logo ? 'block' : 'none'); ?>; max-height: 200px; margin-top: 10px;">
             </div>
         </div>
 
@@ -79,4 +79,6 @@
     });
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\HK6\Back-end 2\Nhóm B\example-app\resources\views/admin/crud_brand/update_brand.blade.php ENDPATH**/ ?>
