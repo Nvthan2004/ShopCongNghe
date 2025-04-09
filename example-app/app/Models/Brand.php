@@ -13,7 +13,6 @@ class Brand extends Model
         'name',
         'slug',
         'logo',
-        'is_active',
     ];
 
     // Một Brand có nhiều Product
