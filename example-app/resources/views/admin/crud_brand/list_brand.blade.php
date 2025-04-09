@@ -15,7 +15,7 @@
 
     <!-- Add Brand Button -->
     <div class="mb-3">
-        <a href="{{ route('brands.create') }}" class="btn btn-primary">Add New Brand</a>
+        <a href="{{ route('admin.add_brand') }}" class="btn btn-primary">Add New Brand</a>
     </div>
 
     <!-- Brands Table -->

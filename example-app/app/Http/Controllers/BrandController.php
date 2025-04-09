@@ -22,6 +22,6 @@ class BrandController extends Controller
 
         Brand::create($validatedData);
 
-        return redirect()->route('brands.index')->with('success', 'Brand added successfully!');
+        return redirect()->route('admin.brand')->with('success', 'Brand added successfully!');
     }
 }
