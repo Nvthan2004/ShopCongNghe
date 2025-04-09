@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100)->unique();        // Tên thương hiệu
             $table->string('slug', 100)->unique();        // Slug SEO
-            $table->text('description')->nullable();      // Mô tả
             $table->string('logo')->nullable();           // Logo thương hiệu
-            $table->boolean('is_active')->default(true);  // Trạng thái
             $table->timestamps();
         });
     }
