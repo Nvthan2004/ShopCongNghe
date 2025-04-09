@@ -12,9 +12,7 @@ class Category extends Model
     protected $fillable = [
         'name',
         'slug',
-        'description',
         'image',
-        'is_active',
     ];
 
     // Một Category có nhiều Product

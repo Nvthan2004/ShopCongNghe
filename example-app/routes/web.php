@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,14 @@ Route::get('dashboard', [CrudUserController::class, 'dashboard']);
 //admin
 Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
 Route::get('/admin/product', [AdminController::class, 'crud_product'])->name('admin.product');
-Route::get('/admin/brand', [AdminController::class, 'crud_brand'])->name('admin.brand');
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+// Route::get('/admin/brands', [AdminController::class, 'crud_brand'])->name('admin.brand');
+Route::get('/admin/dashboard', [AdminController::class, 'drashboard'])->name('admin.dashboard');
+
+// list brand
+Route::get('/admin/brands', [BrandController::class, 'list_brand'])->name('admin.brand');
+//add brand
+Route::get('/admin/add_brand', [BrandController::class, 'add_brand'])->name('admin.add_brand');
+Route::post('/admin/add_brand', [BrandController::class, 'store'])->name('brands.store');
 
 
 Route::get('login', [CrudUserController::class, 'login'])->name('login');
