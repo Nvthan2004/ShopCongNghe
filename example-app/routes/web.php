@@ -19,6 +19,7 @@ Route::get('dashboard', [CrudUserController::class, 'dashboard']);
 //admin
 Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
 Route::get('/admin/product', [AdminController::class, 'crud_product'])->name('admin.product');
+Route::get('/admin/brand', [AdminController::class, 'crud_brand'])->name('admin.brand');
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
 

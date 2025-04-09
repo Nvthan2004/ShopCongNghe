@@ -83,7 +83,7 @@
         <a href="#">Users</a>
         <a href="{{ route('admin.product') }}">Products</a>
         <a href="#">Categorys</a>
-        <a href="#">Brands</a>
+        <a href="{{ route('admin.brand') }}">Brands</a>
         <a href="#">Revenue</a>
         <a href="#">Settings</a>
       </div>
