@@ -29,6 +29,13 @@ Route::get('/admin/brands', [BrandController::class, 'list_brand'])->name('admin
 Route::get('/admin/add_brand', [BrandController::class, 'add_brand'])->name('admin.add_brand');
 Route::post('/admin/add_brand', [BrandController::class, 'store'])->name('brands.store');
 
+//delete brand
+Route::delete('/admin/brands/{id}', [BrandController::class, 'destroy'])->name('brands.destroy');
+//update brand
+Route::get('/admin/brands/{id}/edit', [BrandController::class, 'edit'])->name('brands.edit');
+Route::put('/admin/brands/{id}', [BrandController::class, 'update'])->name('brands.update');
+
+
 
 Route::get('login', [CrudUserController::class, 'login'])->name('login');
 Route::post('login', [CrudUserController::class, 'authUser'])->name('user.authUser');
