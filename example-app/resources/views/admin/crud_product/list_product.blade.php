@@ -16,10 +16,12 @@
     <table class="table table-bordered table-hover align-middle text-center">
         <thead class="table-dark">
             <tr>
-                <th>ID</th>
+                <th style="display: none;">ID</th>
                 <th>Ảnh</th>
                 <th>Tên Sản Phẩm</th>
                 <th>Giá (VND)</th>
+                <th>Mô Tả</th>
+                <th>Số Lượng</th>
                 <th>Danh Mục</th>
                 <th>Thương Hiệu</th>
                 <th>Hành Động</th>
@@ -28,10 +30,12 @@
         <tbody>
             @forelse($products as $product)
             <tr>
-                <td>{{ $product->id }}</td>
+                <td style="display: none;">{{ $product->id }}</td>
                 <td><img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="70"></td>
                 <td>{{ $product->name }}</td>
                 <td>{{ number_format($product->price) }}</td>
+                <td>{{ $product->description }}</td>
+                <td>{{ $product->quantity }}</td>
                 <td>{{ $product->category->name ?? 'N/A' }}</td>
                 <td>{{ $product->brand->name ?? 'N/A' }}</td>
                 <td>

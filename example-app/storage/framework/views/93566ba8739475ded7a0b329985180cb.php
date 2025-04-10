@@ -14,10 +14,12 @@
     <table class="table table-bordered table-hover align-middle text-center">
         <thead class="table-dark">
             <tr>
-                <th>ID</th>
+                <th style="display: none;">ID</th>
                 <th>Ảnh</th>
                 <th>Tên Sản Phẩm</th>
                 <th>Giá (VND)</th>
+                <th>Mô Tả</th>
+                <th>Số Lượng</th>
                 <th>Danh Mục</th>
                 <th>Thương Hiệu</th>
                 <th>Hành Động</th>
@@ -26,10 +28,12 @@
         <tbody>
             <?php $__empty_1 = true; $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
             <tr>
-                <td><?php echo e($product->id); ?></td>
+                <td style="display: none;"><?php echo e($product->id); ?></td>
                 <td><img src="<?php echo e(asset('storage/' . $product->image)); ?>" alt="<?php echo e($product->name); ?>" width="70"></td>
                 <td><?php echo e($product->name); ?></td>
                 <td><?php echo e(number_format($product->price)); ?></td>
+                <td><?php echo e($product->description); ?></td>
+                <td><?php echo e($product->quantity); ?></td>
                 <td><?php echo e($product->category->name ?? 'N/A'); ?></td>
                 <td><?php echo e($product->brand->name ?? 'N/A'); ?></td>
                 <td>
