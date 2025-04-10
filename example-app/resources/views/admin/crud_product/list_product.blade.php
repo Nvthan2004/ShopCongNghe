@@ -9,7 +9,7 @@
     @endif
 
     <div class="mb-4 text-end">
-        <a href="{{ route('admin.product') }}" class="btn btn-primary">Thêm Sản Phẩm</a>
+        <a href="{{ route('admin.add_product') }}" class="btn btn-primary">Thêm Sản Phẩm</a>
     </div>
 
     <table class="table table-bordered table-striped align-middle text-center">
