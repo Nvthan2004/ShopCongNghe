@@ -5,6 +5,7 @@ use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +36,16 @@ Route::delete('/admin/brands/{id}', [BrandController::class, 'destroy'])->name('
 Route::get('/admin/brands/{id}/edit', [BrandController::class, 'edit'])->name('brands.edit');
 Route::put('/admin/brands/{id}', [BrandController::class, 'update'])->name('brands.update');
 
+//list product
+Route::get('/admin/product', [ProductController::class, 'list_product'])->name('admin.product');
+
+Route::get('/admin/add_product', [ProductController::class, 'add_product'])->name('admin.add_product');
+Route::post('/admin/add_product', [ProductController::class, 'create_product'])->name('products.add_product');
+
+// Route::get('/admin/product/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
+// Route::put('/admin/product/update/{id}', [ProductController::class, 'update'])->name('products.update');
+// //delete
+// Route::delete('/admin/product/delete/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 //List Category
 Route::get('/admin/categorys', [CategoryController::class, 'list_category'])->name('admin.category');
