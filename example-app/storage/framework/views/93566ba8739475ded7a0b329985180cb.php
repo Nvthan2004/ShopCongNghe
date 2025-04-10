@@ -3,7 +3,7 @@
     <h1 class="text-center mb-4">Danh Sách Sản Phẩm</h1>
 
     <?php if(session('success')): ?>
-        <div class="alert alert-success"><?php echo e(session('success')); ?></div>
+    <div class="alert alert-success"><?php echo e(session('success')); ?></div>
     <?php endif; ?>
 
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -33,12 +33,14 @@
                 <td><?php echo e($product->category->name ?? 'N/A'); ?></td>
                 <td><?php echo e($product->brand->name ?? 'N/A'); ?></td>
                 <td>
-                    <a href="" class="btn btn-warning btn-sm">Sửa</a>
-                    <form action="" method="POST" class="d-inline-block" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                    <a href="<?php echo e(route('products.edit', $product->id)); ?>" class="btn btn-warning btn-sm">Sửa</a>
+                    <form action="<?php echo e(route('products.destroy', $product->id)); ?>" method="POST"
+                        class="d-inline-block" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('DELETE'); ?>
                         <button class="btn btn-danger btn-sm">Xóa</button>
                     </form>
+
                 </td>
             </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
@@ -50,5 +52,4 @@
     </table>
 </div>
 <?php $__env->stopSection(); ?>
-
 <?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\HK6\Back-end 2\Nhóm B\example-app\resources\views/admin/crud_product/list_product.blade.php ENDPATH**/ ?>
