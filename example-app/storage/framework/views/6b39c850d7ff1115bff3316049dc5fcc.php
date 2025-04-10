@@ -1,23 +1,21 @@
-@extends('admin.dashboard_admin')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="container mt-5">
     <h1 class="mb-4">Edit Category</h1>
-    <form action="{{ route('categorys.update_cate', $category->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
+    <form action="<?php echo e(route('categorys.update_cate', $category->id)); ?>" method="POST" enctype="multipart/form-data">
+        <?php echo csrf_field(); ?>
+        <?php echo method_field('PUT'); ?>
 
         <!-- Name -->
         <div class="mb-3">
             <label for="name" class="form-label">Brand Name</label>
-            <input type="text" class="form-control" id="name" name="name" required value="{{ $category->name }}">
+            <input type="text" class="form-control" id="name" name="name" required value="<?php echo e($category->name); ?>">
         </div>
 
         <!-- Slug (Readonly) -->
         <div class="mb-3">
             <label for="slug" class="form-label">Slug</label>
-            <input type="text" class="form-control" id="slug" name="slug" value="{{ $category->slug }}" readonly>
+            <input type="text" class="form-control" id="slug" name="slug" value="<?php echo e($category->slug); ?>" readonly>
         </div>
 
         <!-- Logo -->
@@ -31,9 +29,9 @@
             <label class="form-label">Preview</label>
             <div id="preview-container">
                 <img id="image-preview" 
-                     src="{{ $category->image ? asset('storage/' . $category->image) : '#' }}" 
+                     src="<?php echo e($category->image ? asset('storage/' . $category->image) : '#'); ?>" 
                      alt="Image Preview" 
-                     style="display: {{ $category->image ? 'block' : 'none' }}; max-height: 200px; margin-top: 10px;">
+                     style="display: <?php echo e($category->image ? 'block' : 'none'); ?>; max-height: 200px; margin-top: 10px;">
             </div>
         </div>
 
@@ -79,4 +77,6 @@
     });
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\ĐỒ ÁN BACKEND2\ShopCongNghe\example-app\resources\views/admin/crud_category/update_category.blade.php ENDPATH**/ ?>

@@ -26,7 +26,7 @@ class AdminController extends Controller
     }
     public function crud_category(){
 
-        return view('admin.crud_category.list_category');
+        return view('admin.crud_category.add_category');
     }
     
     

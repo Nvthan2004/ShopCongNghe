@@ -42,10 +42,11 @@ Route::get('/admin/product', [ProductController::class, 'list_product'])->name('
 Route::get('/admin/add_product', [ProductController::class, 'add_product'])->name('admin.add_product');
 Route::post('/admin/add_product', [ProductController::class, 'create_product'])->name('products.add_product');
 
-// Route::get('/admin/product/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
-// Route::put('/admin/product/update/{id}', [ProductController::class, 'update'])->name('products.update');
-// //delete
-// Route::delete('/admin/product/delete/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+//update product
+Route::get('/admin/product/{id}/edit', [ProductController::class, 'edit_product'])->name('products.edit');
+Route::put('/admin/product/{id}', [ProductController::class, 'update_product'])->name('products.update');
+//delete
+Route::delete('/admin/product/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 //List Category
 Route::get('/admin/categorys', [CategoryController::class, 'list_category'])->name('admin.category');
