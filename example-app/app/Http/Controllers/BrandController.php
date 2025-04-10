@@ -27,13 +27,20 @@ class BrandController extends Controller
             'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if ($request->hasFile('logo')) {
-            $validatedData['logo'] = $request->file('logo')->store('logos', 'public');
+        try {
+            //code...
+            if ($request->hasFile('logo')) {
+                $validatedData['logo'] = $request->file('logo')->store('logos', 'public');
+            }
+    
+            Brand::create($validatedData);
+    
+            return redirect()->route('admin.brand')->with('success', 'Brand added successfully!');
+        } catch (\Throwable $th) {
+            //throw $th;
+            return back()->withErrors(['error' => 'An error occurred while creating the brand. Please try again.']);
         }
-
-        Brand::create($validatedData);
-
-        return redirect()->route('admin.brand')->with('success', 'Brand added successfully!');
+       
     }
 
 
