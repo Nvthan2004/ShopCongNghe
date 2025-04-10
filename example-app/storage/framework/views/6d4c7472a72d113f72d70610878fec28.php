@@ -19,7 +19,7 @@
         <!-- Image -->
         <div class="mb-3">
             <label for="image" class="form-label">Image</label>
-            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
         </div>
 
         <!-- Preview -->

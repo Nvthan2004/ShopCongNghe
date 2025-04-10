@@ -21,7 +21,7 @@
         <!-- Logo -->
         <div class="mb-3">
             <label for="logo" class="form-label">Logo</label>
-            <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
+            <input type="file" class="form-control" id="logo" name="logo" accept="image/*" required>
         </div>
           <!-- Preview -->
           <div class="mb-3">
