@@ -22,7 +22,7 @@
     <table class="table table-bordered">
         <thead class="table-dark">
             <tr>
-                <th>#</th>
+                <th style="display: none;">#</th>
                 <th>Name</th>
                 <th>Slug</th>
                 <th>Logo</th>
@@ -32,7 +32,7 @@
         <tbody>
             @forelse($brands as $brand)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td style="display: none;">{{ $loop->iteration }}</td>
                 <td>{{ $brand->name }}</td>
                 <td>{{ $brand->slug }}</td>
                 <td>
