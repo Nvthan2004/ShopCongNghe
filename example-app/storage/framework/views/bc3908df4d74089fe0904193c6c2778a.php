@@ -1,28 +1,24 @@
-@extends('admin.dashboard_admin')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="container mt-5">
-    <h1 class="mb-4">Edit Category</h1>
-    <form action="{{ route('categorys.update_cate', $category->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-
+    <h1 class="mb-4">Add Category</h1>
+    <form action="<?php echo e(route('categorys.create_cate')); ?>" method="POST" enctype="multipart/form-data">
+        <?php echo csrf_field(); ?>
         <!-- Name -->
         <div class="mb-3">
-            <label for="name" class="form-label">Brand Name</label>
-            <input type="text" class="form-control" id="name" name="name" required value="{{ $category->name }}">
+            <label for="name" class="form-label">Category Name</label>
+            <input type="text" class="form-control" id="name" name="name" required placeholder="Enter category name">
         </div>
 
         <!-- Slug (Readonly) -->
         <div class="mb-3">
             <label for="slug" class="form-label">Slug</label>
-            <input type="text" class="form-control" id="slug" name="slug" value="{{ $category->slug }}" readonly>
+            <input type="text" class="form-control" id="slug" name="slug" readonly>
         </div>
 
-        <!-- Logo -->
+        <!-- Image -->
         <div class="mb-3">
-            <label for="image" class="form-label">Logo</label>
+            <label for="image" class="form-label">Image</label>
             <input type="file" class="form-control" id="image" name="image" accept="image/*">
         </div>
 
@@ -30,15 +26,12 @@
         <div class="mb-3">
             <label class="form-label">Preview</label>
             <div id="preview-container">
-                <img id="image-preview" 
-                     src="{{ $category->image ? asset('storage/' . $category->image) : '#' }}" 
-                     alt="Image Preview" 
-                     style="display: {{ $category->image ? 'block' : 'none' }}; max-height: 200px; margin-top: 10px;">
+                <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-height: 200px; margin-top: 10px;">
             </div>
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Update Category</button>
+        <button type="submit" class="btn btn-primary">Add Category</button>
     </form>
 </div>
 
@@ -79,4 +72,6 @@
     });
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\ĐỒ ÁN BACKEND2\ShopCongNghe\example-app\resources\views/admin/crud_category/add_category.blade.php ENDPATH**/ ?>
