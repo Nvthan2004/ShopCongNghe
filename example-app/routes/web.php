@@ -34,6 +34,13 @@ Route::delete('/admin/brands/{id}', [BrandController::class, 'destroy'])->name('
 //update brand
 Route::get('/admin/brands/{id}/edit', [BrandController::class, 'edit'])->name('brands.edit');
 Route::put('/admin/brands/{id}', [BrandController::class, 'update'])->name('brands.update');
+//Product
+Route::get('/admin/product', [ProductController::class, 'list_product'])->name('admin.product');
+Route::get('/admin/product/add', [ProductController::class, 'add_product'])->name('admin.product.add');
+Route::post('/admin/product/store', [ProductController::class, 'store'])->name('products.store');
+Route::get('/admin/product/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
+Route::put('/admin/product/update/{id}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('/admin/product/delete/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 
 
