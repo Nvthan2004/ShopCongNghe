@@ -1,0 +1,95 @@
+
+    /* Tùy chỉnh carousel */
+    #heroCarousel {
+      margin-bottom: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+    
+    .carousel-item {
+      height: 500px;
+      position: relative;
+    }
+    
+    .carousel-item img {
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .carousel-caption {
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      bottom: 2rem;
+      max-width: 80%;
+      margin: 0 auto;
+      left: 10%;
+      right: 10%;
+    }
+    
+    .carousel-caption h2 {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .carousel-caption p {
+      font-size: 1.1rem;
+    }
+    
+    /* Tùy chỉnh nút điều hướng */
+    .carousel-control-prev, .carousel-control-next {
+      width: 3rem;
+      height: 3rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.8;
+    }
+    
+    .carousel-control-prev {
+      left: 1rem;
+    }
+    
+    .carousel-control-next {
+      right: 1rem;
+    }
+    
+    /* Indicators */
+    .carousel-indicators {
+      bottom: 1rem;
+    }
+    
+    .carousel-indicators button {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 50%;
+      background-color: #fff;
+      margin: 0 0.3rem;
+    }
+    
+    .carousel-indicators button.active {
+      background-color: #0d6efd;
+    }
+    
+    /* Đáp ứng điện thoại di động */
+    @media (max-width: 768px) {
+      .carousel-item {
+        height: 350px;
+      }
+      
+      .carousel-caption {
+        display: block !important;
+        padding: 1rem;
+      }
+      
+      .carousel-caption h2 {
+        font-size: 1.5rem;
+      }
+      
+      .carousel-caption p {
+        font-size: 1rem;
+      }
+    }
