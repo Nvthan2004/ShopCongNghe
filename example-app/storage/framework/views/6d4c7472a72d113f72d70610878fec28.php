@@ -2,6 +2,15 @@
 
 <div class="container mt-5">
     <h1 class="mb-4">Add Category</h1>
+    <?php if($errors->any()): ?>
+        <div class="alert alert-danger">
+            <ul>
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+        </div>
+    <?php endif; ?>
     <form action="<?php echo e(route('categorys.create_cate')); ?>" method="POST" enctype="multipart/form-data">
         <?php echo csrf_field(); ?>
         <!-- Name -->
