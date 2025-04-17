@@ -30,7 +30,8 @@
 
     .product-card img {
       height: 200px;
-      object-fit: cover;
+      object-fit: contain; /* Hiển thị toàn bộ hình ảnh mà không bị cắt */
+    object-position: center; /* Định vị hình ảnh ở giữa */
     }
     .filter-section {
       background-color: #ffffff;

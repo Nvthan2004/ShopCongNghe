@@ -10,10 +10,43 @@ use App\Models\Brand;
 
 class ProductController extends Controller
 {
+
+    // hiển thị theo trang chủ
+    public function product_user_view(Request $request)
+    {
+        $brands = Brand::all(); // Lấy tất cả thương hiệu
+        $categories = Category::all(); // Lấy tất cả loại sản phẩm
+    
+        $query = Product::query();
+    
+        // Lọc theo loại sản phẩm
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+    
+        // Lọc theo thương hiệu
+        if ($request->filled('brand')) {
+            $query->where('brand_id', $request->brand);
+        }
+    
+        // Lọc theo khoảng giá
+        if ($request->filled('price_range')) {
+            [$minPrice, $maxPrice] = explode('-', $request->price_range);
+            $query->whereBetween('price', [(int)$minPrice, (int)$maxPrice]);
+        }
+    
+        // Lấy danh sách sản phẩm đã lọc và phân trang
+        $products = $query->paginate(9);
+    
+        return view('user.view_products', compact('products', 'brands', 'categories'));
+    }
+    
+
     // Trang danh sách sản phẩm
     public function list_product()
     {
-        $products = Product::with('category', 'brand')->get();
+         // Lấy danh sách sản phẩm với phân trang, mỗi trang hiển thị 10 sản phẩm
+    $products = Product::with(['category', 'brand'])->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.crud_product.list_product', compact('products'));
     }
 

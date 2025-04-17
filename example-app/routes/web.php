@@ -25,8 +25,10 @@ Route::get('dashboard', [CrudUserController::class, 'dashboard']);
 //dao dien nguoi dung
 Route::get('/home', [UserController::class, 'home_user'])->name('user.home');
 
-Route::get('/products', [UserController::class, 'product_user_view'])->name('user.product_view');
+// Route::get('/products', [UserController::class, 'product_user_view'])->name('user.product_view');
 
+
+Route::get('/products', [ProductController::class, 'product_user_view'])->name('user.product_view');
 //admin
 Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
 Route::get('/admin/product', [AdminController::class, 'crud_product'])->name('admin.product');
