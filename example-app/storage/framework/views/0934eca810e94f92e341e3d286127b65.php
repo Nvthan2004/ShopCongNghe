@@ -5,10 +5,7 @@
 
     <!-- Success Message -->
     <?php if(session('success')): ?>
-    <div class="alert alert-success">
-        <?php echo e(session('success')); ?>
-
-    </div>
+    <div class="alert alert-success"><?php echo e(session('success')); ?></div>
     <?php endif; ?>
 
     <!-- Add Brand Button -->

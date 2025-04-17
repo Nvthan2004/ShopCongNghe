@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
 
 <div class="container mt-5">
-    <h1 class="mb-4">Add Category</h1>
+    <h1 class="mb-4">Edit Category</h1>
     <?php if($errors->any()): ?>
         <div class="alert alert-danger">
             <ul>
@@ -11,36 +11,41 @@
             </ul>
         </div>
     <?php endif; ?>
-    <form action="<?php echo e(route('categorys.create_cate')); ?>" method="POST" enctype="multipart/form-data">
+    <form action="<?php echo e(route('categorys.update_cate', $category->id)); ?>" method="POST" enctype="multipart/form-data">
         <?php echo csrf_field(); ?>
+        <?php echo method_field('PUT'); ?>
+
         <!-- Name -->
         <div class="mb-3">
-            <label for="name" class="form-label">Category Name</label>
-            <input type="text" class="form-control" id="name" name="name" required placeholder="Enter category name">
+            <label for="name" class="form-label">Brand Name</label>
+            <input type="text" class="form-control" id="name" name="name" required value="<?php echo e($category->name); ?>">
         </div>
 
         <!-- Slug (Readonly) -->
         <div class="mb-3">
             <label for="slug" class="form-label">Slug</label>
-            <input type="text" class="form-control" id="slug" name="slug" readonly>
+            <input type="text" class="form-control" id="slug" name="slug" value="<?php echo e($category->slug); ?>" readonly>
         </div>
 
-        <!-- Image -->
+        <!-- Logo -->
         <div class="mb-3">
-            <label for="image" class="form-label">Image</label>
-            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+            <label for="image" class="form-label">Logo</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*">
         </div>
 
         <!-- Preview -->
         <div class="mb-3">
             <label class="form-label">Preview</label>
             <div id="preview-container">
-                <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-height: 200px; margin-top: 10px;">
+                <img id="image-preview" 
+                     src="<?php echo e($category->image ? asset('storage/' . $category->image) : '#'); ?>" 
+                     alt="Image Preview" 
+                     style="display: <?php echo e($category->image ? 'block' : 'none'); ?>; max-height: 200px; margin-top: 10px;">
             </div>
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Add Category</button>
+        <button type="submit" class="btn btn-primary">Update Category</button>
     </form>
 </div>
 
@@ -83,4 +88,4 @@
 
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\ShopCongNghe\example-app\resources\views/admin/crud_category/add_category.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\ShopCongNghe\example-app\resources\views/admin/crud_category/update_category.blade.php ENDPATH**/ ?>
