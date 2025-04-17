@@ -37,11 +37,21 @@ public function create_cate(Request $request)
         return back()->withErrors(['error' => 'An error occurred while creating the category. Please try again.']);
     }
 }
+
+public function products()
+{
+    return $this->hasMany(Product::class, 'category_id');
+}
 //xóa Cate
 public function destroy_category($id)
 {
     // Tìm Cate theo ID
     $categorys = Category::findOrFail($id);
+
+     // Kiểm tra nếu Brand có sản phẩm liên quan
+     if ($categorys->products()->exists()) {
+        return redirect()->route('admin.category')->with('error', 'Cannot delete Category as it has associated products.');
+    }
 
     // Nếu Cate có logo, xóa file logo khỏi storage
     if ($categorys->image) {
