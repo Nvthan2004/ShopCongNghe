@@ -44,12 +44,12 @@
 
   <!-- Header -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-    <a class="navbar-brand me-auto" href="#">Admin Dashboard</a>
+    <a class="navbar-brand me-auto" href="#">Admin</a>
   
     <!-- Search bar -->
     <form class="d-none d-md-flex mx-auto" role="search">
-      <input class="form-control me-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-      <button class="btn btn-outline-light" type="submit">Tìm</button>
+      <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+      <button class="btn btn-outline-light" type="submit">Search</button>
     </form>
   
     <!-- User Info & Logout -->
@@ -67,7 +67,7 @@
       </li>
       <!-- Nút logout -->
       <li class="nav-item">
-        <a class="btn btn-outline-light" href="#">Đăng xuất</a>
+        <a class="btn btn-outline-light" href="#">Log Out</a>
       </li>
     </ul>
   </nav>

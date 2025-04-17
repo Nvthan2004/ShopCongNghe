@@ -1,48 +1,36 @@
-@extends('admin.dashboard_admin')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="container mt-5">
-    <h1 class="mb-4">Add Category</h1>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    <form action="{{ route('categorys.create_cate') }}" method="POST" enctype="multipart/form-data">
-        @csrf
+    <h1 class="mb-4">Add Brand</h1>
+    <form action="<?php echo e(route('brands.store')); ?>" method="POST" enctype="multipart/form-data">
+        <?php echo csrf_field(); ?>
         <!-- Name -->
         <div class="mb-3">
-            <label for="name" class="form-label">Category Name</label>
-            <input type="text" class="form-control" id="name" name="name" required placeholder="Enter category name">
+            <label for="name" class="form-label">Brand Name</label>
+            <input type="text" class="form-control" id="name" name="name" required placeholder="Enter brand name">
         </div>
-
+        
         <!-- Slug (Readonly) -->
         <div class="mb-3">
             <label for="slug" class="form-label">Slug</label>
             <input type="text" class="form-control" id="slug" name="slug" readonly>
         </div>
 
-        <!-- Image -->
+        <!-- Logo -->
         <div class="mb-3">
-            <label for="image" class="form-label">Image</label>
-            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+            <label for="logo" class="form-label">Logo</label>
+            <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
         </div>
-
-        <!-- Preview -->
-        <div class="mb-3">
+          <!-- Preview -->
+          <div class="mb-3">
             <label class="form-label">Preview</label>
             <div id="preview-container">
-                <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-height: 200px; margin-top: 10px;">
+                <img id="logo-preview" src="#" alt="Logo Preview" style="display: none; max-height: 200px; margin-top: 10px;">
             </div>
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Add Category</button>
+        <button type="submit" class="btn btn-primary">Add Brand</button>
     </form>
 </div>
 
@@ -64,8 +52,8 @@
     });
 
     // Preview image functionality
-    document.getElementById('image').addEventListener('change', function (event) {
-        const preview = document.getElementById('image-preview');
+    document.getElementById('logo').addEventListener('change', function (event) {
+        const preview = document.getElementById('logo-preview');
         const file = event.target.files[0];
 
         if (file) {
@@ -83,4 +71,6 @@
     });
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\ĐỒ ÁN BACKEND2\ShopCongNghe\example-app\resources\views/admin/crud_brand/add_brand.blade.php ENDPATH**/ ?>

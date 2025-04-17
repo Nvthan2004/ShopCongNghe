@@ -1,20 +1,9 @@
-@extends('admin.dashboard_admin')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="container mt-5">
     <h1 class="mb-4">Add Category</h1>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    <form action="{{ route('categorys.create_cate') }}" method="POST" enctype="multipart/form-data">
-        @csrf
+    <form action="<?php echo e(route('categorys.create_cate')); ?>" method="POST" enctype="multipart/form-data">
+        <?php echo csrf_field(); ?>
         <!-- Name -->
         <div class="mb-3">
             <label for="name" class="form-label">Category Name</label>
@@ -30,7 +19,7 @@
         <!-- Image -->
         <div class="mb-3">
             <label for="image" class="form-label">Image</label>
-            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*">
         </div>
 
         <!-- Preview -->
@@ -83,4 +72,6 @@
     });
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\ĐỒ ÁN BACKEND2\ShopCongNghe\example-app\resources\views/admin/crud_category/add_category.blade.php ENDPATH**/ ?>

@@ -2,11 +2,6 @@
 
 <div class="container mt-5">
     <h1 class="mb-4">Category List</h1>
-
-    <?php if(session('success')): ?>
-    <div class="alert alert-success"><?php echo e(session('success')); ?></div>
-    <?php endif; ?>
-
     <a href="<?php echo e(route('admin.add_category')); ?>" class="btn btn-primary mb-3">Add New Category</a>
     
     <table class="table table-bordered">
@@ -53,4 +48,4 @@
 
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\HK6\Back-end 2\Nhóm B\example-app\resources\views/admin/crud_category/list_category.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\ĐỒ ÁN BACKEND2\ShopCongNghe\example-app\resources\views/admin/crud_category/list_category.blade.php ENDPATH**/ ?>

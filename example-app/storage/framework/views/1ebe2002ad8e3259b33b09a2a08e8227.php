@@ -5,10 +5,10 @@
 
     <!-- Success Message -->
     <?php if(session('success')): ?>
-        <div class="alert alert-success">
-            <?php echo e(session('success')); ?>
+    <div class="alert alert-success">
+        <?php echo e(session('success')); ?>
 
-        </div>
+    </div>
     <?php endif; ?>
 
     <!-- Add Brand Button -->
@@ -19,45 +19,43 @@
     <!-- Brands Table -->
     <table class="table table-bordered">
         <thead class="table-dark">
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Slug</th>
-            <th>Description</th>
-            <th>Logo</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
+            <tr>
+                <th style="display: none;">#</th>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Logo</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         <tbody>
-        <?php $__empty_1 = true; $__currentLoopData = $brands; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+            <?php $__empty_1 = true; $__currentLoopData = $brands; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
             <tr>
-                <td><?php echo e($loop->iteration); ?></td>
+                <td style="display: none;"><?php echo e($loop->iteration); ?></td>
                 <td><?php echo e($brand->name); ?></td>
                 <td><?php echo e($brand->slug); ?></td>
-                <td><?php echo e($brand->description); ?></td>
                 <td>
                     <?php if($brand->logo): ?>
-                        <img src="<?php echo e(asset('storage/' . $brand->logo)); ?>" alt="Logo" width="50">
+                    <img src="<?php echo e(asset('storage/' . $brand->logo)); ?>" alt="Logo" width="50">
                     <?php else: ?>
-                        N/A
+                    N/A
                     <?php endif; ?>
                 </td>
-                <td><?php echo e($brand->is_active ? 'Active' : 'Inactive'); ?></td>
                 <td>
-                    <a href="<?php echo e(route('brands.edit', $brand->id)); ?>" class="btn btn-warning btn-sm">Edit</a>
+                <a href="<?php echo e(route('brands.edit', $brand->id)); ?>" class="btn btn-warning btn-sm">Edit</a>
                     <form action="<?php echo e(route('brands.destroy', $brand->id)); ?>" method="POST" class="d-inline">
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('DELETE'); ?>
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                        <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Are you sure?')">Delete</button>
                     </form>
+
                 </td>
             </tr>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
             <tr>
                 <td colspan="7" class="text-center">No brands found.</td>
             </tr>
-        <?php endif; ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

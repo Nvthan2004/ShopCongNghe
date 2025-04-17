@@ -5,7 +5,7 @@
     <h1 class="text-center mb-4">Danh Sách Sản Phẩm</h1>
 
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -16,10 +16,12 @@
     <table class="table table-bordered table-hover align-middle text-center">
         <thead class="table-dark">
             <tr>
-                <th>ID</th>
+                <th style="display: none;">ID</th>
                 <th>Ảnh</th>
                 <th>Tên Sản Phẩm</th>
                 <th>Giá (VND)</th>
+                <th>Mô Tả</th>
+                <th>Số Lượng</th>
                 <th>Danh Mục</th>
                 <th>Thương Hiệu</th>
                 <th>Hành Động</th>
@@ -28,19 +30,23 @@
         <tbody>
             @forelse($products as $product)
             <tr>
-                <td>{{ $product->id }}</td>
+                <td style="display: none;">{{ $product->id }}</td>
                 <td><img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="70"></td>
                 <td>{{ $product->name }}</td>
                 <td>{{ number_format($product->price) }}</td>
+                <td>{{ $product->description }}</td>
+                <td>{{ $product->quantity }}</td>
                 <td>{{ $product->category->name ?? 'N/A' }}</td>
                 <td>{{ $product->brand->name ?? 'N/A' }}</td>
                 <td>
-                    <a href="" class="btn btn-warning btn-sm">Sửa</a>
-                    <form action="" method="POST" class="d-inline-block" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
+                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">Sửa</a>
+                    <form action="{{ route('products.destroy', $product->id) }}" method="POST"
+                        class="d-inline-block" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?');">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger btn-sm">Xóa</button>
                     </form>
+
                 </td>
             </tr>
             @empty

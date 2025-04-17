@@ -64,50 +64,72 @@ class ProductController extends Controller
 
 
     // Trang chỉnh sửa sản phẩm
-    public function edit($id)
+    public function edit_product($id)
     {
         $product = Product::findOrFail($id);
-        return view('admin.crud_product.update_product', compact('product'));
+        $categories = Category::all();
+        $brands = Brand::all();
+    
+        return view('admin.crud_product.update_product', compact('product', 'categories', 'brands'));
     }
+    
 
     // Cập nhật sản phẩm
-    public function update(Request $request, $id)
+    public function update_product(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-
+    
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
-            'description' => 'required|string|max:1000',
+            'quantity' => 'required|integer',
             'category' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
+    
+        // Lấy ID từ tên category và brand
+        $categoryId = Category::where('name', $request->input('category'))->value('id');
+        $brandId = Brand::where('name', $request->input('brand'))->value('id');
+    
+        if (!$categoryId || !$brandId) {
+            return back()->withErrors(['category' => 'Danh mục hoặc thương hiệu không hợp lệ.']);
+        }
+    
+        $product->name = $validatedData['name'];
+        $product->price = $validatedData['price'];
+        $product->quantity = $validatedData['quantity'];
+        $product->category_id = $categoryId;
+        $product->brand_id = $brandId;
+    
         if ($request->hasFile('image')) {
+            // Xóa ảnh cũ
             if ($product->image) {
                 Storage::delete('public/' . $product->image);
             }
-
-            $validatedData['image'] = $request->file('image')->store('products', 'public');
+            // Lưu ảnh mới
+            $product->image = $request->file('image')->store('products', 'public');
         }
-
-        $product->update($validatedData);
-
+    
+        $product->save();
+    
         return redirect()->route('admin.product')->with('success', 'Cập nhật sản phẩm thành công!');
     }
+    
 
     // Xóa sản phẩm
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-
+    
+        // Xóa ảnh nếu có
         if ($product->image) {
             Storage::delete('public/' . $product->image);
         }
-
+    
         $product->delete();
-
+    
         return redirect()->route('admin.product')->with('success', 'Xóa sản phẩm thành công!');
     }
+    
 }
