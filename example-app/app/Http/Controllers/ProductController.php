@@ -11,6 +11,28 @@ use App\Models\Brand;
 class ProductController extends Controller
 {
 
+    //sản phẩm mới
+    public function product_new()
+{
+    $featuredProducts = Product::orderBy('created_at', 'desc')->take(8)->get(); // Lấy 8 sản phẩm mới nhất
+    return view('user.index', compact('featuredProducts'));
+}
+    // chi tiết sản phẩm
+    public function show_product($id)
+{
+    // Tìm sản phẩm theo ID
+    $product = Product::findOrFail($id);
+
+    // Lấy danh sách sản phẩm liên quan (có thể dựa trên danh mục hoặc điều kiện khác)
+    $relatedProducts = Product::where('category_id', $product->category_id)
+        ->where('id', '!=', $id)
+        ->take(4) // Lấy 4 sản phẩm liên quan
+        ->get();
+
+    // Trả về view với dữ liệu
+    return view('user.detail_product', compact('product', 'relatedProducts'));
+}
+
     // hiển thị theo trang chủ
     public function product_user_view(Request $request)
     {
