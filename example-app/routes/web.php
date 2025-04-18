@@ -23,9 +23,15 @@ use App\Http\Controllers\UserController;
 Route::get('dashboard', [CrudUserController::class, 'dashboard']);
 
 //dao dien nguoi dung
-Route::get('/home', [UserController::class, 'home_user'])->name('user.home');
+Route::get('/home', [ProductController::class, 'product_new'])->name('user.home');
 
-Route::get('/products', [UserController::class, 'product_user_view'])->name('user.product_view');
+
+//  Route::get('/products/detail', [UserController::class, 'product_detail'])->name('user.detail_product');
+
+// chi tiết sản phẩm
+ Route::get('/product/{id}', [ProductController::class, 'show_product'])->name('product.show');
+// danh sách sản phẩm
+Route::get('/products', [ProductController::class, 'product_user_view'])->name('user.product_view');
 
 //admin
 Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');

@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('content'); ?>
 
 <div class="container py-4">
@@ -51,89 +49,43 @@
     </div>
 <!-- Sản phẩm -->
 <div class="container my-5">
-<div id="featuredProductsCarousel" class="carousel slide" data-bs-ride="carousel">
-  <!-- Tiêu đề -->
-  <h3 class="mb-4 text-center fw-bold">Sản Phẩm Nổi Bật</h3>
+    <div id="featuredProductsCarousel" class="carousel slide" data-bs-ride="carousel">
+        <h3 class="mb-4 text-center fw-bold">Sản Phẩm mới</h3>
 
-  <!-- Các sản phẩm -->
-  <div class="carousel-inner">
-    <!-- Slide 1 -->
-    <div class="carousel-item active" data-bs-interval="3000">
-      <div class="row g-4">
-        <div class="col-md-3">
-          <div class="card product-card shadow-sm">
-            <img src="https://source.unsplash.com/300x200/?smartphone" class="card-img-top" alt="Điện thoại">
-            <div class="card-body">
-              <h5 class="card-title">Điện thoại thông minh</h5>
-              <p class="card-text">Thiết kế sang trọng, hiệu năng mạnh mẽ.</p>
-              <button class="btn btn-primary w-100">Mua ngay</button>
+        <div class="carousel-inner">
+            <?php $__currentLoopData = $featuredProducts->chunk(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <!-- Chia sản phẩm thành các nhóm 4 -->
+            <div class="carousel-item <?php echo e($loop->first ? 'active' : ''); ?>" data-bs-interval="3000">
+                <div class="row g-4">
+                    <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="col-md-3">
+                        <div class="card product-card shadow-sm">
+                            <img src="<?php echo e(asset('storage/' . $product->image)); ?>" class="card-img-top fixed-size-img" alt="<?php echo e($product->name); ?>">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo e($product->name); ?></h5>
+                                <p class="card-text"><?php echo e($product->description); ?></p>
+                                <a href="<?php echo e(route('product.show', $product->id)); ?>" class="btn btn-primary w-100">Mua ngay</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
             </div>
-          </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
-        <div class="col-md-3">
-          <div class="card product-card shadow-sm">
-            <img src="https://source.unsplash.com/300x200/?laptop" class="card-img-top" alt="Laptop">
-            <div class="card-body">
-              <h5 class="card-title">Laptop mới nhất</h5>
-              <p class="card-text">Cấu hình mạnh, mỏng nhẹ, pin lâu.</p>
-              <button class="btn btn-primary w-100">Mua ngay</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card product-card shadow-sm">
-            <img src="https://source.unsplash.com/300x200/?smartwatch" class="card-img-top" alt="Smartwatch">
-            <div class="card-body">
-              <h5 class="card-title">Đồng hồ thông minh</h5>
-              <p class="card-text">Theo dõi sức khoẻ, kết nối dễ dàng.</p>
-              <button class="btn btn-primary w-100">Mua ngay</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card product-card shadow-sm">
-            <img src="https://source.unsplash.com/300x200/?headphones" class="card-img-top" alt="Tai nghe">
-            <div class="card-body">
-              <h5 class="card-title">Tai nghe không dây</h5>
-              <p class="card-text">Âm thanh sống động, thời lượng pin ấn tượng.</p>
-              <button class="btn btn-primary w-100">Mua ngay</button>
-            </div>
-          </div>
-        </div>
-      </div>
+
+        <!-- Nút điều hướng -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-
-    <!-- Slide 2 -->
-    <div class="carousel-item" data-bs-interval="3000">
-      <div class="row g-4">
-        <!-- Các sản phẩm tiếp theo -->
-        <div class="col-md-3">
-          <div class="card product-card shadow-sm">
-            <img src="https://source.unsplash.com/300x200/?tablet" class="card-img-top" alt="Tablet">
-            <div class="card-body">
-              <h5 class="card-title">Máy tính bảng</h5>
-              <p class="card-text">Màn hình lớn, tiện lợi cho công việc.</p>
-              <button class="btn btn-primary w-100">Mua ngay</button>
-            </div>
-          </div>
-        </div>
-        <!-- ... Thêm các sản phẩm khác (tổng cộng 6 sản phẩm trong slide 2) -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Nút điều hướng -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div>
 
-</div>
 
 
 <?php echo $__env->make('user.contact', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

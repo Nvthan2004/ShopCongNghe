@@ -24,6 +24,7 @@
                 <th>Số Lượng</th>
                 <th>Danh Mục</th>
                 <th>Thương Hiệu</th>
+                <th>Ngày</th>
                 <th>Hành Động</th>
             </tr>
         </thead>
@@ -33,11 +34,12 @@
                 <td style="display: none;">{{ $product->id }}</td>
                 <td><img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="70"></td>
                 <td>{{ $product->name }}</td>
-                <td>{{ number_format($product->price) }}</td>
+                <td>{{ number_format($product->price) }} VND</td>
                 <td>{{ $product->description }}</td>
                 <td>{{ $product->quantity }}</td>
                 <td>{{ $product->category->name ?? 'N/A' }}</td>
                 <td>{{ $product->brand->name ?? 'N/A' }}</td>
+                <td>{{ $product->created_at }}</td>
                 <td>
                     <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">Sửa</a>
                     <form action="{{ route('products.destroy', $product->id) }}" method="POST"
@@ -56,5 +58,9 @@
             @endforelse
         </tbody>
     </table>
+    <div class="d-flex justify-content-center mt-4">
+    {{ $products->links('pagination::bootstrap-4') }}
+</div>
+
 </div>
 @endsection

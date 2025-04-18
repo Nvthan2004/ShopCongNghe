@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Brand;
+use App\Models\Product;
 
 class BrandController extends Controller
 {
@@ -44,23 +45,35 @@ class BrandController extends Controller
     }
 
 
+    // kiểm tra có có brand có trong product ko
+    public function products()
+{
+    return $this->hasMany(Product::class, 'brand_id');
+}
+
     //xóa brand
     public function destroy($id)
-    {
-        // Tìm Brand theo ID
-        $brand = Brand::findOrFail($id);
+{
+    // Tìm Brand theo ID
+    $brand = Brand::findOrFail($id);
 
-        // Nếu Brand có logo, xóa file logo khỏi storage
-        if ($brand->logo) {
-            \Storage::delete('public/' . $brand->logo);
-        }
-
-        // Xóa Brand
-        $brand->delete();
-
-        // Chuyển hướng với thông báo thành công
-        return redirect()->route('admin.brand')->with('success', 'Brand deleted successfully!');
+    // Kiểm tra nếu Brand có sản phẩm liên quan
+    if ($brand->products()->exists()) {
+        return redirect()->route('admin.brand')->with('error', 'Cannot delete brand as it has associated products.');
     }
+
+    // Nếu Brand có logo, xóa file logo khỏi storage
+    if ($brand->logo) {
+        \Storage::delete('public/' . $brand->logo);
+    }
+
+    // Xóa Brand
+    $brand->delete();
+
+    // Chuyển hướng với thông báo thành công
+    return redirect()->route('admin.brand')->with('success', 'Brand deleted successfully!');
+}
+
     public function edit($id)
     {
         // Tìm Brand theo ID
