@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Brand;
+use App\Models\Product;
 
 class BrandController extends Controller
 {
@@ -27,33 +28,52 @@ class BrandController extends Controller
             'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if ($request->hasFile('logo')) {
-            $validatedData['logo'] = $request->file('logo')->store('logos', 'public');
+        try {
+            //code...
+            if ($request->hasFile('logo')) {
+                $validatedData['logo'] = $request->file('logo')->store('logos', 'public');
+            }
+    
+            Brand::create($validatedData);
+    
+            return redirect()->route('admin.brand')->with('success', 'Brand added successfully!');
+        } catch (\Throwable $th) {
+            //throw $th;
+            return back()->withErrors(['error' => 'An error occurred while creating the brand. Please try again.']);
         }
-
-        Brand::create($validatedData);
-
-        return redirect()->route('admin.brand')->with('success', 'Brand added successfully!');
+       
     }
 
+
+    // kiểm tra có có brand có trong product ko
+    public function products()
+{
+    return $this->hasMany(Product::class, 'brand_id');
+}
 
     //xóa brand
     public function destroy($id)
-    {
-        // Tìm Brand theo ID
-        $brand = Brand::findOrFail($id);
+{
+    // Tìm Brand theo ID
+    $brand = Brand::findOrFail($id);
 
-        // Nếu Brand có logo, xóa file logo khỏi storage
-        if ($brand->logo) {
-            \Storage::delete('public/' . $brand->logo);
-        }
-
-        // Xóa Brand
-        $brand->delete();
-
-        // Chuyển hướng với thông báo thành công
-        return redirect()->route('admin.brand')->with('success', 'Brand deleted successfully!');
+    // Kiểm tra nếu Brand có sản phẩm liên quan
+    if ($brand->products()->exists()) {
+        return redirect()->route('admin.brand')->with('error', 'Cannot delete brand as it has associated products.');
     }
+
+    // Nếu Brand có logo, xóa file logo khỏi storage
+    if ($brand->logo) {
+        \Storage::delete('public/' . $brand->logo);
+    }
+
+    // Xóa Brand
+    $brand->delete();
+
+    // Chuyển hướng với thông báo thành công
+    return redirect()->route('admin.brand')->with('success', 'Brand deleted successfully!');
+}
+
     public function edit($id)
     {
         // Tìm Brand theo ID

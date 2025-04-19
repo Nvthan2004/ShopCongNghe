@@ -4,6 +4,15 @@
 
 <div class="container mt-5">
     <h1 class="mb-4">Edit Category</h1>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ route('categorys.update_cate', $category->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')

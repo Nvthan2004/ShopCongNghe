@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +18,21 @@ use App\Http\Controllers\ProductController;
 |
 */
 
+
+
 Route::get('dashboard', [CrudUserController::class, 'dashboard']);
+
+//dao dien nguoi dung
+Route::get('/home', [ProductController::class, 'product_new'])->name('user.home');
+
+
+//  Route::get('/products/detail', [UserController::class, 'product_detail'])->name('user.detail_product');
+
+// chi tiết sản phẩm
+ Route::get('/product/{id}', [ProductController::class, 'show_product'])->name('product.show');
+// danh sách sản phẩm
+Route::get('/products', [ProductController::class, 'product_user_view'])->name('user.product_view');
+
 //admin
 Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
 Route::get('/admin/product', [AdminController::class, 'crud_product'])->name('admin.product');
@@ -61,6 +76,9 @@ Route::delete('/admin/categorys/{id}', [CategoryController::class, 'destroy_cate
 //update cate
 Route::get('/admin/categorys/{id}/edit', [CategoryController::class, 'edit_cate'])->name('categorys.edit_cate');
 Route::put('/admin/categorys/{id}', [CategoryController::class, 'update_cate'])->name('categorys.update_cate');
+
+
+
 
 Route::get('login', [CrudUserController::class, 'login'])->name('login');
 Route::post('login', [CrudUserController::class, 'authUser'])->name('user.authUser');

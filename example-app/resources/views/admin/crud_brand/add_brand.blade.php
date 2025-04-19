@@ -4,6 +4,16 @@
 
 <div class="container mt-5">
     <h1 class="mb-4">Add Brand</h1>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('brands.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <!-- Name -->

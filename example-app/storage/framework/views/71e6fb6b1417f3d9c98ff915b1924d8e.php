@@ -2,6 +2,17 @@
 
 <div class="container mt-5">
     <h1 class="mb-4">Category List</h1>
+
+    <?php if(session('success')): ?>
+    <div class="alert alert-success"><?php echo e(session('success')); ?></div>
+    <?php endif; ?>
+    <?php if(session('error')): ?>
+        <div class="alert alert-danger">
+        <?php echo e(session('error')); ?>
+
+        </div>
+    <?php endif; ?>
+
     <a href="<?php echo e(route('admin.add_category')); ?>" class="btn btn-primary mb-3">Add New Category</a>
     
     <table class="table table-bordered">
