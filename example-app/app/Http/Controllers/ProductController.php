@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Brand;
 
@@ -36,6 +37,7 @@ class ProductController extends Controller
     // hiển thị theo trang chủ
     public function product_user_view(Request $request)
     {
+        $user = Auth::user();
         $brands = Brand::all(); // Lấy tất cả thương hiệu
         $categories = Category::all(); // Lấy tất cả loại sản phẩm
     
@@ -60,7 +62,7 @@ class ProductController extends Controller
         // Lấy danh sách sản phẩm đã lọc và phân trang
         $products = $query->paginate(9);
     
-        return view('user.view_products', compact('products', 'brands', 'categories'));
+        return view('user.view_products', compact('products', 'brands', 'categories','user'));
     }
     
 
