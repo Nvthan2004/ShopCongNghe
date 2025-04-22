@@ -9,6 +9,7 @@ use Hash;
 use Session;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 
 class CrudUserController extends Controller
 {
@@ -19,6 +20,22 @@ class CrudUserController extends Controller
     {
         return view('crud_user.login');
     }
+    public function home()
+    {
+        $user = Auth::user();
+    
+        if ($user) {
+            // Nếu người dùng đã đăng nhập, hiển thị thông tin user
+            $featuredProducts = Product::orderBy('created_at', 'desc')->take(8)->get();
+            return view('user.index', compact('user', 'featuredProducts'));
+        }
+    
+        // Nếu không đăng nhập, hiển thị danh sách sản phẩm
+        $featuredProducts = Product::orderBy('created_at', 'desc')->take(8)->get();
+        return view('user.index', ['featuredProducts' => $featuredProducts]);
+    }
+    
+    
 
     /**
      * User submit form login
@@ -31,12 +48,16 @@ class CrudUserController extends Controller
         ]);
     
         $credentials = $request->only('username', 'password');
+    
         if (Auth::attempt($credentials)) {
-         
-            return redirect()->intended('list')->withSuccess('Signed in');
+            $request->session()->regenerate(); // Tạo lại session để đảm bảo an toàn
+            return redirect()->intended('home')->with('success', 'Đăng nhập thành công!');
         }
     
+        return back()->withErrors(['login' => 'Thông tin đăng nhập không chính xác.']);
     }
+    
+    
     
 
     /**
@@ -54,8 +75,6 @@ class CrudUserController extends Controller
     {
         $request->validate([
             'username' => 'required|unique:users',
-            'age' => 'required|integer|min:1',
-            'github' => 'required|url',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
             'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',  // Kiểm tra ảnh
@@ -73,8 +92,6 @@ class CrudUserController extends Controller
         // Tạo user mới
         $user = User::create([
             'username' => $request->username,
-            'age' => $request->age,
-            'github' => $request->github,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'img' => $imagePath,  // Lưu đường dẫn ảnh vào DB
@@ -186,6 +203,6 @@ class CrudUserController extends Controller
         Session::flush();
         Auth::logout();
 
-        return Redirect('login');
+        return Redirect('home');
     }
 }
