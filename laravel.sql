@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 17, 2025 lúc 09:55 AM
+-- Thời gian đã tạo: Th4 22, 2025 lúc 09:51 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -236,8 +236,6 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `quantity`, `image
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `username` varchar(100) NOT NULL,
-  `age` varchar(100) NOT NULL,
-  `github` varchar(100) NOT NULL,
   `img` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -246,6 +244,13 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `img`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Duyhv', 'images/1745212275_03df3f663da40eb38e50a5ef8a60c7846883efba.jpg', 'huynhvanduy1904@gmail.com', NULL, '$2y$10$ftBDTuisGFCN6GPKjPF/Euny0F4Z6d9JrOV3waWNHrtnPOjryheMi', NULL, '2025-04-20 22:11:16', '2025-04-20 22:11:16');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -352,7 +357,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
