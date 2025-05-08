@@ -42,4 +42,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    protected static function booted()
+{
+    static::creating(function ($user) {
+        if (empty($user->role)) {
+            $user->role = 'user';
+        }
+    });
+}
+
 }

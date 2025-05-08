@@ -21,6 +21,7 @@ class ProductController extends Controller
     // chi tiết sản phẩm
     public function show_product($id)
 {
+    $user = Auth::user();
     // Tìm sản phẩm theo ID
     $product = Product::findOrFail($id);
 
@@ -31,7 +32,7 @@ class ProductController extends Controller
         ->get();
 
     // Trả về view với dữ liệu
-    return view('user.detail_product', compact('product', 'relatedProducts'));
+    return view('user.detail_product', compact('product', 'relatedProducts','user'));
 }
 
     // hiển thị theo trang chủ
@@ -69,17 +70,19 @@ class ProductController extends Controller
     // Trang danh sách sản phẩm
     public function list_product()
     {
+        $user = Auth::user();
          // Lấy danh sách sản phẩm với phân trang, mỗi trang hiển thị 10 sản phẩm
     $products = Product::with(['category', 'brand'])->orderBy('created_at', 'desc')->paginate(10);
-        return view('admin.crud_product.list_product', compact('products'));
+        return view('admin.crud_product.list_product', compact('products','user'));
     }
 
     // Trang thêm sản phẩm
     public function add_product()
     {
+        $user = Auth::User();
         $categories = Category::all();
         $brands = Brand::all();
-        return view('admin.crud_product.add_product', compact('categories', 'brands'));
+        return view('admin.crud_product.add_product', compact('categories', 'brands','user'));
     }
 
     // Thêm sản phẩm mới
@@ -123,11 +126,12 @@ class ProductController extends Controller
     // Trang chỉnh sửa sản phẩm
     public function edit_product($id)
     {
+        $user = Auth::User();
         $product = Product::findOrFail($id);
         $categories = Category::all();
         $brands = Brand::all();
     
-        return view('admin.crud_product.update_product', compact('product', 'categories', 'brands'));
+        return view('admin.crud_product.update_product', compact('product', 'categories', 'brands','user'));
     }
     
 

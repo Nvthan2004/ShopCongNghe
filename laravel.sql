@@ -240,6 +240,7 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
+  `role` enum('admin','user') NOT NULL DEFAULT 'user',
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -249,8 +250,9 @@ CREATE TABLE `users` (
 -- Đang đổ dữ liệu cho bảng `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `img`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Duyhv', 'images/1745212275_03df3f663da40eb38e50a5ef8a60c7846883efba.jpg', 'huynhvanduy1904@gmail.com', NULL, '$2y$10$ftBDTuisGFCN6GPKjPF/Euny0F4Z6d9JrOV3waWNHrtnPOjryheMi', NULL, '2025-04-20 22:11:16', '2025-04-20 22:11:16');
+INSERT INTO `users` (`id`, `username`, `img`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Duyhv', 'images/1746687839_24a114a24c53f8621973001609780c1d.png', 'huynhvanduy1904@gmail.com', NULL, '$2y$10$f3A/Ox2anqpSbQxGvqcLO..33WLHziFavmlhbb6JE5VgXgqrinH4S', 'admin', NULL, '2025-05-08 00:03:59', '2025-05-08 00:03:59'),
+(2, 'aaa', 'images/1746689659_03df3f663da40eb38e50a5ef8a60c7846883efba.jpg', 'aaa@gmai.com', NULL, '$2y$10$OxPKlNFufyomw7XenT4lAO8.XEPa2ziEXI6Lis8mHj/64FbfRDRmO', 'user', NULL, '2025-05-08 00:34:19', '2025-05-08 00:34:19');
 
 --
 -- Chỉ mục cho các bảng đã đổ

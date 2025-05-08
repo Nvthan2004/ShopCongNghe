@@ -4,19 +4,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
 {
 
     public function add_brand(){
-        return view('admin.crud_brand.add_brand');
+        $user = Auth::User();
+        return view('admin.crud_brand.add_brand',compact('user'));
     }
 
     public function list_brand()
 {
+    $user = Auth::User();
     $brands = Brand::all(); // Lấy tất cả bản ghi từ bảng brands
-    return view('admin.crud_brand.list_brand', compact('brands'));
+    return view('admin.crud_brand.list_brand', compact('brands','user'));
 }
 
 
@@ -78,10 +81,11 @@ class BrandController extends Controller
     public function edit($id)
     {
         // Tìm Brand theo ID
+        $user = Auth::User();
         $brand = Brand::findOrFail($id);
 
         // Trả về view edit với dữ liệu của Brand
-        return view('admin.crud_brand.update_brand', compact('brand'));
+        return view('admin.crud_brand.update_brand', compact('brand','user'));
     }
 
     public function update(Request $request, $id)
