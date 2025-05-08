@@ -7,7 +7,7 @@
     <title>Tất Cả Sản Phẩm</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <style>
     .nav-item .dropdown-toggle img {
         border: 2px solid #ffffff;
@@ -358,6 +358,11 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li><a class="dropdown-item" href="#" id="logout-btn"><i class="bi bi-gear-fill"></i>
                                     cài đặt</a></li>
+                            <?php if($user->role === 'admin'): ?>
+                            <li><a class="dropdown-item" href="<?php echo e(route('admin.home')); ?>" id="admin-btn"><i
+                                        class="bi bi-shield-lock-fill"></i>
+                                    Admin</a></li>
+                            <?php endif; ?>
                             <li><a class="dropdown-item" href="<?php echo e(route('signout')); ?>" id="logout-btn"><i
                                         class="bi bi-box-arrow-right"></i>
                                     Đăng Xuất</a></li>
