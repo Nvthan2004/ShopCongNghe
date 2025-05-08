@@ -41,6 +41,12 @@
   </style>
 </head>
 <body>
+<?php
+    if (!isset($user) || $user->role !== 'admin') {
+        header('Location: ' . route('user.home'));
+        exit;
+    }
+?>
 
   <!-- Header -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
@@ -52,6 +58,7 @@
       <button class="btn btn-outline-light" type="submit">Search</button>
     </form>
   
+    @if(isset($user))
     <!-- User Info & Logout -->
     <ul class="navbar-nav ms-auto">
       <!-- Thông báo -->
@@ -62,14 +69,15 @@
       </li>
       <!-- Tên người dùng -->
       <li class="nav-item me-3 d-flex align-items-center">
-        <img src="https://via.placeholder.com/30" class="rounded-circle me-2" alt="Avatar">
-        <span class="text-white">Admin</span>
+        <img src="{{ asset('storage/' . $user->img) }}"  class="rounded-circle me-2" width="40" height="40" alt="Avatar">
+        <span class="text-white">{{ $user->username }}</span>
       </li>
       <!-- Nút logout -->
       <li class="nav-item">
-        <a class="btn btn-outline-light" href="#">Log Out</a>
+        <a class="btn btn-outline-light" href="{{ route('user.home') }}">Log Out</a>
       </li>
     </ul>
+    @endif
   </nav>
   
 
