@@ -24,6 +24,10 @@
             <input type="number" class="form-control" id="price" name="price" value="<?php echo e($product->price); ?>" required>
         </div>
         <div class="mb-3">
+            <label for="description" class="form-label">Mô tả</label>
+            <textarea class="form-control" id="description" name="description" rows="4"required><?php echo e($product->description); ?></textarea>
+        </div>
+        <div class="mb-3">
             <label for="quantity" class="form-label">Số lượng</label>
             <input type="number" class="form-control" id="quantity" name="quantity" value="<?php echo e($product->quantity); ?>" required>
         </div>
