@@ -5,17 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller{
 
     public function add_category(){
-        return view('admin.crud_category.add_category');
+        $user = Auth::User();
+        return view('admin.crud_category.add_category', compact('user') );
     }
     public function list_category()
 {
+    $user = Auth::User();
     $categorys = Category::all(); // Lấy tất cả bản ghi từ bảng brands
-    return view('admin.crud_category.list_category', compact('categorys'));
+    return view('admin.crud_category.list_category', compact('categorys','user'));
 }
 
 
@@ -43,7 +46,7 @@ public function create_cate(Request $request)
 public function products()
 {
     return $this->hasMany(Product::class, 'category_id');
-}
+}   
 //xóa Cate
 public function destroy_category($id)
 {
@@ -71,11 +74,12 @@ public function destroy_category($id)
 
 public function edit_cate($id)
 {
-    // Tìm Brand theo ID
+    $user = Auth::User();
+    // Tìm Category theo ID
     $category = Category::findOrFail($id);
 
     // Trả về view edit với dữ liệu của Brand
-    return view('admin.crud_category.update_category', compact('category'));
+    return view('admin.crud_category.update_category', compact('category','user'));
 }
 
 public function update_cate(Request $request, $id)
