@@ -192,5 +192,22 @@ class ProductController extends Controller
     
         return redirect()->route('admin.product')->with('success', 'Xóa sản phẩm thành công!');
     }
+    //tim kiem
     
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+    
+        $products = Product::where('name', 'like', "%$search%")
+                        ->orWhere('description', 'like', "%$search%")
+                        ->paginate(6); // Mỗi trang 6 sản phẩm
+    
+        return view('user.single', [
+            'products' => $products,
+            'search' => $search
+        ]);
+    }
+    
+    
+          
 }

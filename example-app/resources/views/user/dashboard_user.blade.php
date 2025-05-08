@@ -320,6 +320,7 @@
             min-height: 300px;
         }
     }
+    
     </style>
 </head>
 
@@ -328,13 +329,19 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ route('home') }}">Shop<span>CôngNghệ</span></a>
+            <a class="navbar-brand fw-bold" href="{{ route('user.home') }}">Shop<span>CôngNghệ</span></a>
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <form class="d-flex ms-3" action="{{ route('user.product.search') }}" method="GET">
+             <input class="form-control me-2" type="search" name="search" placeholder="Tìm sản phẩm..."
+           value="{{ request('search') }}">
+             <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+            </form>
+
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center">
-                    <li class="nav-item"><a class="nav-link " href="{{ route('home') }}">Trang Chủ</a></li>
+                    <li class="nav-item"><a class="nav-link " href="{{ route('user.home') }}">Trang Chủ</a></li>
                     <li class="nav-item"><a class="nav-link " href="{{ route('user.product_view') }}">Sản Phẩm</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Liên Hệ</a></li>
                     <li class="nav-item position-relative ms-3">

@@ -7,6 +7,7 @@
     <title>Tất Cả Sản Phẩm</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
     .nav-item .dropdown-toggle img {
         border: 2px solid #ffffff;
@@ -319,6 +320,7 @@
             min-height: 300px;
         }
     }
+    
     </style>
 </head>
 
@@ -327,13 +329,19 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="<?php echo e(route('home')); ?>">Shop<span>CôngNghệ</span></a>
+            <a class="navbar-brand fw-bold" href="<?php echo e(route('user.home')); ?>">Shop<span>CôngNghệ</span></a>
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <form class="d-flex ms-3" action="<?php echo e(route('user.product.search')); ?>" method="GET">
+             <input class="form-control me-2" type="search" name="search" placeholder="Tìm sản phẩm..."
+           value="<?php echo e(request('search')); ?>">
+             <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+            </form>
+
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center">
-                    <li class="nav-item"><a class="nav-link " href="<?php echo e(route('home')); ?>">Trang Chủ</a></li>
+                    <li class="nav-item"><a class="nav-link " href="<?php echo e(route('user.home')); ?>">Trang Chủ</a></li>
                     <li class="nav-item"><a class="nav-link " href="<?php echo e(route('user.product_view')); ?>">Sản Phẩm</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Liên Hệ</a></li>
                     <li class="nav-item position-relative ms-3">
@@ -350,16 +358,22 @@
                     <li class="nav-item dropdown ms-3">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="<?php echo e(asset('storage/' . $user->img)); ?>" alt="User Avatar" class="rounded-circle me-2"
-                                width="40" height="40">
+                            <img src="<?php echo e(asset('storage/' . $user->img)); ?>" alt="User Avatar"
+                                class="rounded-circle me-2" width="40" height="40">
                             <span class="fw-bold" id="user-name"><?php echo e($user->username); ?></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" href="#" id="logout-btn"><i class="bi bi-gear-fill"></i>
-                        cài đặt</a></li>
-                            <li><a class="dropdown-item" href="<?php echo e(route('signout')); ?>" id="logout-btn"><i class="bi bi-box-arrow-right"></i>
+                            <li><a class="dropdown-item" href="#" id="logout-btn"><i class="bi bi-gear-fill"></i>
+                                    cài đặt</a></li>
+                            <?php if($user->role === 'admin'): ?>
+                            <li><a class="dropdown-item" href="<?php echo e(route('admin.home')); ?>" id="admin-btn"><i
+                                        class="bi bi-shield-lock-fill"></i>
+                                    Admin</a></li>
+                            <?php endif; ?>
+                            <li><a class="dropdown-item" href="<?php echo e(route('signout')); ?>" id="logout-btn"><i
+                                        class="bi bi-box-arrow-right"></i>
                                     Đăng Xuất</a></li>
-                                    
+
                         </ul>
                     </li>
                     <?php else: ?>
