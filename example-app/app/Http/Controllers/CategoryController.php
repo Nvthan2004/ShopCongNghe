@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller{
 
@@ -55,7 +57,7 @@ public function destroy_category($id)
 
     // Nếu Cate có logo, xóa file logo khỏi storage
     if ($categorys->image) {
-        \Storage::delete('public/' . $categorys->image);
+        Storage::delete('public/' . $categorys->image);
     }
 
     // Xóa Cate
@@ -91,7 +93,7 @@ public function update_cate(Request $request, $id)
         if ($request->hasFile('image')) {
             // Xóa hình ảnh cũ nếu tồn tại
             if ($category->image) {
-                \Storage::delete('public/' . $category->image);
+                Storage::delete('public/' . $category->image);
             }
 
             $validatedData['image'] = $request->file('image')->store('image', 'public');
