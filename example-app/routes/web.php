@@ -26,7 +26,7 @@ Route::get('dashboard', [CrudUserController::class, 'dashboard']);
 // Đổi URL để tránh trùng lặp
 // Route::get('/home', [CrudUserController::class, 'home_user'])->middleware('auth')->name('user.home');
 // Route::get('/home', [ProductController::class, 'product_new'])->name('product.home');
-Route::middleware('auth')->get('/home', [CrudUserController::class, 'home'])->name('home');
+Route::middleware('auth')->get('/home', [CrudUserController::class, 'home'])->name('user.home');
 
 
 

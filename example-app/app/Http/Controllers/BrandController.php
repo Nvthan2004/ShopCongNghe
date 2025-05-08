@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
 {
@@ -64,7 +65,7 @@ class BrandController extends Controller
 
     // Nếu Brand có logo, xóa file logo khỏi storage
     if ($brand->logo) {
-        \Storage::delete('public/' . $brand->logo);
+        Storage::delete('public/' . $brand->logo);
     }
 
     // Xóa Brand
@@ -97,7 +98,7 @@ class BrandController extends Controller
         if ($request->hasFile('logo')) {
             // Xóa logo cũ nếu có
             if ($brand->logo) {
-                \Storage::delete('public/' . $brand->logo);
+                Storage::delete('public/' . $brand->logo);
             }
 
             $validatedData['logo'] = $request->file('logo')->store('logos', 'public');
