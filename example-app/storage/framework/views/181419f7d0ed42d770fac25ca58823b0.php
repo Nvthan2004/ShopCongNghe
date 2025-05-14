@@ -103,7 +103,15 @@
                         <div class="card-body">
                             <h6 class="product-title"><?php echo e($product->name); ?></h6>
                             <p class="text-danger fw-bold"><?php echo e(number_format($product->price, 0, ',', '.')); ?> ₫</p>
-                            <a href="<?php echo e(route('product.show', $product->id)); ?>" class="btn btn-outline-primary btn-sm w-100">Xem Chi Tiết</a>
+
+                            <a href="<?php echo e(route('product.show', $product->id)); ?>"
+                                class="btn btn-outline-primary btn-sm w-100">Xem Chi Tiết</a>
+                            <form action="<?php echo e(route('cart.add')); ?>" method="POST">
+                                <?php echo csrf_field(); ?>
+                                <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
+                                <button type="submit" class="btn btn-success btn-sm w-100">Thêm vào giỏ hàng</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>
