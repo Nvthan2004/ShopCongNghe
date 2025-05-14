@@ -1,9 +1,9 @@
 <?php $__env->startSection('content'); ?>
-<div class="container mt-4">
+<div class="container mt-3">
 <?php if(!empty($search)): ?>
         <h4>Kết quả tìm kiếm cho: <strong><?php echo e($search); ?></strong></h4>
     <?php endif; ?>
-    <div class="row g-4 mt-4">
+    <div class="row g-3 mt-3">
         <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="card h-100 shadow-sm border-light rounded">
