@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 22, 2025 lúc 09:51 AM
+-- Thời gian đã tạo: Th5 14, 2025 lúc 06:18 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -47,6 +47,26 @@ INSERT INTO `brands` (`id`, `name`, `slug`, `logo`, `created_at`, `updated_at`) 
 (6, 'Oppo', 'oppo', 'logos/DoAJydndQrNZosaUtjkmneilgY6LHe0zSx67qJlW.jpg', '2025-04-16 23:28:51', '2025-04-16 23:31:33'),
 (7, 'Realme', 'realme', 'logos/PBqOhoaKbqv3RC5NeEfsAjabFm2TuHk2KgjBrKiv.jpg', '2025-04-16 23:33:00', '2025-04-16 23:33:00'),
 (8, 'Xiaomi', 'xiaomi', 'logos/mrD9vj2kkZ2Guf8JQckS9VmCs8C6oNvsgJYFl9eQ.png', '2025-04-16 23:53:55', '2025-04-16 23:53:55');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `carts`
+--
+
+CREATE TABLE `carts` (
+  `id_user` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `soluong` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `carts`
+--
+
+INSERT INTO `carts` (`id_user`, `id_product`, `soluong`) VALUES
+(1, 5, 2),
+(1, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -359,7 +379,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
