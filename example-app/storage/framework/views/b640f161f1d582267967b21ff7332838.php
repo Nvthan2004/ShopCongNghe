@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('content'); ?>
 <div class="container my-5">
     <h1 class="text-center mb-4">Danh Sách Người Dùng</h1>
