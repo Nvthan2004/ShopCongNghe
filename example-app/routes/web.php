@@ -40,47 +40,46 @@ Route::middleware('auth')->get('/home', [CrudUserController::class, 'home'])->na
 Route::middleware('auth')->get('/products', [ProductController::class, 'product_user_view'])->name('user.product_view');
 
 //admin
-Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
-Route::get('/admin/product', [AdminController::class, 'crud_product'])->name('admin.product');
+Route::middleware('auth')->get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
+Route::middleware('auth')->get('/admin/product', [AdminController::class, 'crud_product'])->name('admin.product');
 // Route::get('/admin/brands', [AdminController::class, 'crud_brand'])->name('admin.brand');
-Route::get('/admin/dashboard', [AdminController::class, 'drashboard'])->name('admin.dashboard');
 
 // list brand
-Route::get('/admin/brands', [BrandController::class, 'list_brand'])->name('admin.brand');
+Route::middleware('auth')->get('/admin/brands', [BrandController::class, 'list_brand'])->name('admin.brand');
 //add brand
-Route::get('/admin/add_brand', [BrandController::class, 'add_brand'])->name('admin.add_brand');
+Route::middleware('auth')->get('/admin/add_brand', [BrandController::class, 'add_brand'])->name('admin.add_brand');
 Route::post('/admin/add_brand', [BrandController::class, 'store'])->name('brands.store');
 
 //delete brand
 Route::delete('/admin/brands/{id}', [BrandController::class, 'destroy'])->name('brands.destroy');
 //update brand
-Route::get('/admin/brands/{id}/edit', [BrandController::class, 'edit'])->name('brands.edit');
+Route::middleware('auth')->get('/admin/brands/{id}/edit', [BrandController::class, 'edit'])->name('brands.edit');
 Route::put('/admin/brands/{id}', [BrandController::class, 'update'])->name('brands.update');
 
 //list product
-Route::get('/admin/product', [ProductController::class, 'list_product'])->name('admin.product');
+Route::middleware('auth')->get('/admin/product', [ProductController::class, 'list_product'])->name('admin.product');
 
-Route::get('/admin/add_product', [ProductController::class, 'add_product'])->name('admin.add_product');
+Route::middleware('auth')->get('/admin/add_product', [ProductController::class, 'add_product'])->name('admin.add_product');
 Route::post('/admin/add_product', [ProductController::class, 'create_product'])->name('products.add_product');
 
 //update product
-Route::get('/admin/product/{id}/edit', [ProductController::class, 'edit_product'])->name('products.edit');
+Route::middleware('auth')->get('/admin/product/{id}/edit', [ProductController::class, 'edit_product'])->name('products.edit');
 Route::put('/admin/product/{id}', [ProductController::class, 'update_product'])->name('products.update');
 //delete
 Route::delete('/admin/product/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 //List Category
-Route::get('/admin/categorys', [CategoryController::class, 'list_category'])->name('admin.category');
+Route::middleware('auth')->get('/admin/categorys', [CategoryController::class, 'list_category'])->name('admin.category');
 
 //add Category
-Route::get('/admin/add_category', [CategoryController::class, 'add_category'])->name('admin.add_category');
+Route::middleware('auth')->get('/admin/add_category', [CategoryController::class, 'add_category'])->name('admin.add_category');
 Route::post('/admin/add_category', [CategoryController::class, 'create_cate'])->name('categorys.create_cate');
 
 //delete cate
 Route::delete('/admin/categorys/{id}', [CategoryController::class, 'destroy_category'])->name('categorys.destroy_category');
 
 //update cate
-Route::get('/admin/categorys/{id}/edit', [CategoryController::class, 'edit_cate'])->name('categorys.edit_cate');
+Route::middleware('auth')->get('/admin/categorys/{id}/edit', [CategoryController::class, 'edit_cate'])->name('categorys.edit_cate');
 Route::put('/admin/categorys/{id}', [CategoryController::class, 'update_cate'])->name('categorys.update_cate');
 
 
@@ -108,6 +107,9 @@ Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
 Route::get('/', function () {
     return view('welcome');
 });
+// tiem kiem
+Route::get('/search', [ProductController::class, 'search'])->name('user.product.search');
+
 
 
 
