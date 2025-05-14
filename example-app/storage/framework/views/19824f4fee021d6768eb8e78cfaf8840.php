@@ -14,7 +14,7 @@
                     <h5 class="card-title"><?php echo e($item->name); ?></h5>
                     <p class="card-text text-muted"><?php echo e(Str::limit($item->description, 100)); ?></p>
                     <p class="text-danger fw-bold"><?php echo e(number_format($item->price, 0, ',', '.')); ?>₫</p>
-                    <a href="#" class="btn btn-outline-primary mt-2">Xem chi tiết</a>
+                    <a href="<?php echo e(route('product.show', $item->id)); ?>" class="btn btn-outline-primary mt-2">Xem chi tiết</a>
                 </div>
             </div>
         </div>

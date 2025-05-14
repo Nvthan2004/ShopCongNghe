@@ -106,7 +106,8 @@
 
                             <a href="{{ route('product.show', $product->id) }}"
                                 class="btn btn-outline-primary btn-sm w-100">Xem Chi Tiết</a>
-                            <form action="{{ route('cart.add') }}" method="POST">
+                            <form id="add-to-cart-form-{{ $product->id }}" class="add-to-cart-form"
+                                action="{{ route('cart.add') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <button type="submit" class="btn btn-success btn-sm w-100">Thêm vào giỏ hàng</button>
@@ -133,5 +134,8 @@
     </div>
 </div>
 
+<script>
+    
+</script>
 
 @endsection

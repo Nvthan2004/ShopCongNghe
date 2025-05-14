@@ -33,6 +33,8 @@ Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.ad
 // sửa số lượng giỏ hàng
 Route::put('/cart/update/{user_id}/{product_id}', [CartController::class, 'updateQuantity'])->name('cart.update');
 
+Route::get('/cart/count', [CartController::class, 'getCartCount']);
+
 
 //xóa giỏ hàng
 Route::delete('/cart/delete/{userId}/{productId}', [CartController::class, 'delete'])->name('cart.delete');
