@@ -126,6 +126,11 @@ Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
 Route::get('/', function () {
     return view('welcome');
 });
+//List user
+Route::middleware('auth')->get('/admin/user', [UserController::class, 'list_user'])->name('admin.user');
+
+
+
 // tiem kiem
 Route::get('/search', [ProductController::class, 'search'])->name('user.product.search');
 
