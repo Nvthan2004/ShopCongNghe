@@ -94,7 +94,7 @@
                     <h4 class="mb-3">Tóm Tắt Đơn Hàng</h4>
 
                     <div class="d-flex justify-content-between mb-2">
-                        <span>Tổng sản phẩm (<span id="total-items">{{ $cartItems->count() }}</span>)</span>
+                       <span>Tổng sản phẩm (<span id="total-items">{{ $cartItems->sum('soluong') }}</span>)</span>
                         <span id="subtotal">{{ number_format($cartItems->sum(fn($item) => $item->product->price * $item->soluong), 0, ',', '.') }}
                             ₫</span>
                     </div>
@@ -175,7 +175,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script>
-/// Cập nhật số lượng sản phẩm
+// Cập nhật số lượng sản phẩm
 function updateQuantity(userId, productId, inputElement) {
     const newQuantity = parseInt(inputElement.value);
     
@@ -212,8 +212,9 @@ function updateQuantity(userId, productId, inputElement) {
                 if (cartItem) {
                     cartItem.style.opacity = '1';
                 }
-                // Cập nhật UI mà không load lại trang
+                // Cập nhật UI chỉ cho sản phẩm cụ thể
                 updateCartItemUI(productId, newQuantity);
+                // Cập nhật tổng đơn hàng
                 updateOrderSummary();
             }
         })
@@ -228,10 +229,13 @@ function updateQuantity(userId, productId, inputElement) {
 
 // Cập nhật UI của một sản phẩm cụ thể
 function updateCartItemUI(productId, newQuantity) {
+    // Chỉ cập nhật sản phẩm có ID tương ứng
     const cartItem = document.getElementById(`cart-item-${productId}`);
     if (cartItem) {
         const quantityInput = cartItem.querySelector('.quantity-input');
-        quantityInput.value = newQuantity;
+        if (quantityInput) {
+            quantityInput.value = newQuantity;
+        }
     }
 }
 
@@ -248,6 +252,7 @@ function updateOrderSummary() {
         const price = parseInt(priceElement.getAttribute('data-price'));
         const quantity = parseInt(input.value);
 
+        // Cộng dồn số lượng thực tế của từng sản phẩm
         totalItems += quantity;
         totalPrice += price * quantity;
     });
