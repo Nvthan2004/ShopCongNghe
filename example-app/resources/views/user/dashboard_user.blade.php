@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -323,95 +322,107 @@
             min-height: 300px;
         }
     }
-<<<<<<< HEAD
-    
-=======
+
     .cart-header {
-            background: linear-gradient(135deg, #13547a 0%, #80d0c7 100%);
-            color: white;
-            border-radius: 15px 15px 0 0;
-            padding: 20px;
-            margin-bottom: 0;
-        }
-        .cart-container {
-            border-radius: 15px;
-            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
-            background-color: white;
-            overflow: hidden;
-        }
-        .product-card {
-            border: none;
-            border-bottom: 1px solid #eee;
-            border-radius: 0;
-            transition: all 0.3s ease;
-        }
-        .product-card:last-child {
-            border-bottom: none;
-        }
-        .product-card:hover {
-            background-color: #f8f9fa;
-        }
-        .product-img {
-            border-radius: 10px;
-            border: 1px solid #eee;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-        .product-img:hover {
-            transform: scale(1.05);
-        }
-        .quantity-input {
-            max-width: 80px;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid #ced4da;
-        }
-        .btn-circle {
-            width: 30px;
-            height: 30px;
-            padding: 0;
-            border-radius: 50%;
-            text-align: center;
-            font-size: 12px;
-            line-height: 1.428571429;
-        }
-        .summary-card {
-            border-radius: 15px;
-            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-        }
-        .checkout-btn {
-            border-radius: 30px;
-            padding: 10px 20px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            transition: all 0.3s;
-        }
-        .checkout-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
-        }
-        .continue-shopping {
-            color: #6c757d;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        .continue-shopping:hover {
-            color: #343a40;
-        }
-        .badge-product {
-            background-color: #13547a;
-            color: white;
-            font-size: 0.8rem;
-            padding: 5px 10px;
-            border-radius: 20px;
-        }
-        .divider {
-            height: 1px;
-            background-color: #e9ecef;
-            margin: 15px 0;
-        }
->>>>>>> Duy
+        background: linear-gradient(135deg, #13547a 0%, #80d0c7 100%);
+        color: white;
+        border-radius: 15px 15px 0 0;
+        padding: 20px;
+        margin-bottom: 0;
+    }
+
+    .cart-container {
+        border-radius: 15px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        background-color: white;
+        overflow: hidden;
+    }
+
+    .product-card {
+        border: none;
+        border-bottom: 1px solid #eee;
+        border-radius: 0;
+        transition: all 0.3s ease;
+    }
+
+    .product-card:last-child {
+        border-bottom: none;
+    }
+
+    .product-card:hover {
+        background-color: #f8f9fa;
+    }
+
+    .product-img {
+        border-radius: 10px;
+        border: 1px solid #eee;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .product-img:hover {
+        transform: scale(1.05);
+    }
+
+    .quantity-input {
+        max-width: 80px;
+        border-radius: 20px;
+        text-align: center;
+        border: 1px solid #ced4da;
+    }
+
+    .btn-circle {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.428571429;
+    }
+
+    .summary-card {
+        border-radius: 15px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+
+    .checkout-btn {
+        border-radius: 30px;
+        padding: 10px 20px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        transition: all 0.3s;
+    }
+
+    .checkout-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .continue-shopping {
+        color: #6c757d;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .continue-shopping:hover {
+        color: #343a40;
+    }
+
+    .badge-product {
+        background-color: #13547a;
+        color: white;
+        font-size: 0.8rem;
+        padding: 5px 10px;
+        border-radius: 20px;
+    }
+
+    .divider {
+        height: 1px;
+        background-color: #e9ecef;
+        margin: 15px 0;
+    }
     </style>
 </head>
 
@@ -425,9 +436,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <form class="d-flex ms-3" action="{{ route('user.product.search') }}" method="GET">
-             <input class="form-control me-2" type="search" name="search" placeholder="Tìm sản phẩm..."
-           value="{{ request('search') }}">
-             <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+                <input class="form-control me-2" type="search" name="search" placeholder="Tìm sản phẩm..."
+                    value="{{ request('search') }}">
+                <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
             </form>
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -496,6 +507,126 @@
     // Giả lập: bạn có thể thay bằng dữ liệu thực tế
     let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
     document.getElementById("cart-count").innerText = cartItems.length;
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lấy số lượng hiện tại trong giỏ hàng khi trang được tải
+        fetch('/cart/count')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('cart-count').textContent = data.count;
+                }
+            })
+            .catch(error => console.error('Error fetching cart count:', error));
+
+        // Bắt sự kiện submit cho tất cả các form thêm vào giỏ hàng
+        document.querySelectorAll('.add-to-cart-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); // Ngăn chặn form submit thông thường
+
+                const formData = new FormData(this);
+
+                fetch(this.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Hiển thị thông báo thành công
+                            showToast('Thành công', 'Sản phẩm đã được thêm vào giỏ hàng.');
+
+                            // Cập nhật số lượng trong badge
+                            updateCartBadge(1); // Tăng thêm 1
+                        } else {
+                            showToast('Lỗi', data.message ||
+                                'Có lỗi xảy ra khi thêm sản phẩm.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showToast('Lỗi', 'Không thể thêm sản phẩm. Vui lòng thử lại sau.');
+                    });
+            });
+        });
+    });
+
+    // Hàm cập nhật số lượng trong badge giỏ hàng
+    function updateCartBadge(change = 0) {
+        const cartCountElement = document.getElementById('cart-count');
+        if (cartCountElement) {
+            // Lấy giá trị hiện tại và chuyển đổi thành số
+            let currentCount = parseInt(cartCountElement.textContent || '0');
+
+            // Cập nhật số lượng
+            currentCount += change;
+
+            // Cập nhật nội dung hiển thị
+            cartCountElement.textContent = currentCount;
+
+            // Thêm hiệu ứng nhấp nháy
+            cartCountElement.classList.add('badge-highlight');
+            setTimeout(() => {
+                cartCountElement.classList.remove('badge-highlight');
+            }, 700);
+        }
+    }
+
+    // Hàm hiển thị thông báo toast
+    function showToast(title, message) {
+        // Bạn có thể sử dụng Bootstrap Toast hoặc thư viện khác
+        // Đây là ví dụ đơn giản:
+        const toastContainer = document.getElementById('toast-container') || createToastContainer();
+
+        const toast = document.createElement('div');
+        toast.className = 'toast show';
+        toast.innerHTML = `
+        <div class="toast-header">
+            <strong class="me-auto">${title}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            ${message}
+        </div>
+    `;
+
+        toastContainer.appendChild(toast);
+
+        // Tự động ẩn toast sau 3 giây
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
+    }
+
+    // Tạo container cho toast nếu chưa có
+    function createToastContainer() {
+        const container = document.createElement('div');
+        container.id = 'toast-container';
+        container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+        document.body.appendChild(container);
+        return container;
+    }
+
+    // Thêm CSS cho hiệu ứng nhấp nháy
+    const style = document.createElement('style');
+    style.textContent = `
+@keyframes badgeHighlight {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+.badge-highlight {
+    animation: badgeHighlight 0.7s ease;
+}
+`;
+    document.head.appendChild(style);
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

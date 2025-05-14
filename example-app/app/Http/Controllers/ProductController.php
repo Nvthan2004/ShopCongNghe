@@ -198,6 +198,7 @@ class ProductController extends Controller
     
     public function search(Request $request)
     {
+        $user = Auth::User();
         $search = $request->input('search');
     
         $products = Product::where('name', 'like', "%$search%")
@@ -206,8 +207,8 @@ class ProductController extends Controller
     
         return view('user.single', [
             'products' => $products,
-            'search' => $search
-        ]);
+            'search' => $search 
+        ], compact('user'));
     }
     
     

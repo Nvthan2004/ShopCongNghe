@@ -106,7 +106,8 @@
 
                             <a href="<?php echo e(route('product.show', $product->id)); ?>"
                                 class="btn btn-outline-primary btn-sm w-100">Xem Chi Tiết</a>
-                            <form action="<?php echo e(route('cart.add')); ?>" method="POST">
+                            <form id="add-to-cart-form-<?php echo e($product->id); ?>" class="add-to-cart-form"
+                                action="<?php echo e(route('cart.add')); ?>" method="POST">
                                 <?php echo csrf_field(); ?>
                                 <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
                                 <button type="submit" class="btn btn-success btn-sm w-100">Thêm vào giỏ hàng</button>
@@ -134,6 +135,9 @@
     </div>
 </div>
 
+<script>
+    
+</script>
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('user.dashboard_user', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\HK6\Back-end 2\Nhóm B\example-app\resources\views/user/view_products.blade.php ENDPATH**/ ?>
