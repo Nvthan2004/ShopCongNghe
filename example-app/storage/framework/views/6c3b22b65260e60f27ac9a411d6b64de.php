@@ -1,3 +1,6 @@
+@extends('admin.dashboard_admin')
+
+@section('content')
 <?php $__env->startSection('content'); ?>
 <div class="container my-5">
     <h1 class="text-center mb-4">Cập Nhật Sản Phẩm</h1>
@@ -55,4 +58,5 @@
 </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\ShopCongNghe\example-app\resources\views/admin/crud_product/update_product.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\ShopCongNghe\example-app\resources\views/admin/crud_product/update_product.blade.php ENDPATH** */ ?>
+ @endsection
