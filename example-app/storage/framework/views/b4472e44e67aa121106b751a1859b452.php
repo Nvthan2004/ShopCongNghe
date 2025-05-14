@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -322,6 +323,9 @@
             min-height: 300px;
         }
     }
+<<<<<<< HEAD
+    
+=======
     .cart-header {
             background: linear-gradient(135deg, #13547a 0%, #80d0c7 100%);
             color: white;
@@ -407,6 +411,7 @@
             background-color: #e9ecef;
             margin: 15px 0;
         }
+>>>>>>> Duy
     </style>
 </head>
 
@@ -419,6 +424,12 @@
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <form class="d-flex ms-3" action="<?php echo e(route('user.product.search')); ?>" method="GET">
+             <input class="form-control me-2" type="search" name="search" placeholder="Tìm sản phẩm..."
+           value="<?php echo e(request('search')); ?>">
+             <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+            </form>
+
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item"><a class="nav-link " href="<?php echo e(route('user.home')); ?>">Trang Chủ</a></li>
