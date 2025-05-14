@@ -107,6 +107,9 @@ Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
 Route::get('/', function () {
     return view('welcome');
 });
+// tiem kiem
+Route::get('/search', [ProductController::class, 'search'])->name('user.product.search');
+
 
 
 
