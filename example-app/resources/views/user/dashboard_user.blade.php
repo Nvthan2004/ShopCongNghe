@@ -1,11 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Tất Cả Sản Phẩm</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -320,6 +323,95 @@
             min-height: 300px;
         }
     }
+<<<<<<< HEAD
+    
+=======
+    .cart-header {
+            background: linear-gradient(135deg, #13547a 0%, #80d0c7 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            padding: 20px;
+            margin-bottom: 0;
+        }
+        .cart-container {
+            border-radius: 15px;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+            background-color: white;
+            overflow: hidden;
+        }
+        .product-card {
+            border: none;
+            border-bottom: 1px solid #eee;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+        .product-card:last-child {
+            border-bottom: none;
+        }
+        .product-card:hover {
+            background-color: #f8f9fa;
+        }
+        .product-img {
+            border-radius: 10px;
+            border: 1px solid #eee;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .product-img:hover {
+            transform: scale(1.05);
+        }
+        .quantity-input {
+            max-width: 80px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid #ced4da;
+        }
+        .btn-circle {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.428571429;
+        }
+        .summary-card {
+            border-radius: 15px;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+        }
+        .checkout-btn {
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+        .continue-shopping {
+            color: #6c757d;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .continue-shopping:hover {
+            color: #343a40;
+        }
+        .badge-product {
+            background-color: #13547a;
+            color: white;
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        .divider {
+            height: 1px;
+            background-color: #e9ecef;
+            margin: 15px 0;
+        }
+>>>>>>> Duy
     </style>
 </head>
 
@@ -332,13 +424,20 @@
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <form class="d-flex ms-3" action="{{ route('user.product.search') }}" method="GET">
+             <input class="form-control me-2" type="search" name="search" placeholder="Tìm sản phẩm..."
+           value="{{ request('search') }}">
+             <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+            </form>
+
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item"><a class="nav-link " href="{{ route('user.home') }}">Trang Chủ</a></li>
                     <li class="nav-item"><a class="nav-link " href="{{ route('user.product_view') }}">Sản Phẩm</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Liên Hệ</a></li>
+                    <!-- cart -->
                     <li class="nav-item position-relative ms-3">
-                        <a class="nav-link" href="cart.html">
+                        <a class="nav-link" href="{{ route('user.carts') }}">
                             <i class="bi bi-cart3 fs-5"></i>
                             <span
                                 class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
