@@ -136,6 +136,14 @@ Route::middleware('auth')->get('/admin/user', [UserController::class, 'list_user
 // tiem kiem
 Route::middleware('auth')->get('/search', [ProductController::class, 'search'])->name('user.product.search');
 
+Route::middleware('auth')->get('/setting', [UserController::class, 'edit'])->name('user.edit');
+
+Route::put('/setting', [UserController::class, 'update'])->name('user.update');
+//thay doi mat khau
+Route::post('/user/change-password', [UserController::class, 'changePassword'])->name('user.changePassword');
+
+
+
 
 
 
