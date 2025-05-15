@@ -51,42 +51,49 @@
     </div>
 <!-- Sản phẩm -->
 <div class="container my-5">
-    <div id="featuredProductsCarousel" class="carousel slide" data-bs-ride="carousel">
-        <h3 class="mb-4 text-center fw-bold">Sản Phẩm mới</h3>
-
-        <div class="carousel-inner">
-            @foreach ($featuredProducts->chunk(4) as $chunk) <!-- Chia sản phẩm thành các nhóm 4 -->
-            <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-bs-interval="3000">
-                <div class="row g-4">
-                    @foreach ($chunk as $product)
-                    <div class="col-md-3">
-                        <div class="card product-card shadow-sm">
-                            <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top fixed-size-img" alt="{{ $product->name }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $product->name }}</h5>
-                                <p class="card-text">{{ $product->description }}</p>
-                                <a href="{{ route('product.show', $product->id) }}" class="btn btn-primary w-100">Mua ngay</a>
-                                
+  @foreach ($categories as $category)
+    @if ($category->products->count() > 0)
+        <div class="container my-5">
+            <h3 class="mb-4 fw-bold text-center text-uppercase">{{ $category->name }}</h3>
+            <div id="carouselCategory{{ $category->id }}" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach ($category->products->chunk(4) as $chunk)
+                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                            <div class="row g-4">
+                                @foreach ($chunk as $product)
+                                    <div class="col-md-3">
+                                        <div class="card product-card shadow-sm">
+                                            <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top fixed-size-img" alt="{{ $product->name }}">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ $product->name }}</h5>
+                                                <p class="card-text">{{ $product->description }}</p>
+                                                <a href="{{ route('product.show', $product->id) }}" class="btn btn-primary w-100">Mua ngay</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
-            </div>
-            @endforeach
-        </div>
 
-        <!-- Nút điều hướng -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselCategory{{ $category->id }}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Trước</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselCategory{{ $category->id }}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Tiếp</span>
+                </button>
+            </div>
+        </div>
+    @endif
+@endforeach
+
 </div>
+
+
+
 
 
 
