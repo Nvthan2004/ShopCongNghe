@@ -130,6 +130,8 @@ Route::get('/', function () {
 });
 //List user
 Route::middleware('auth')->get('/admin/user', [UserController::class, 'list_user'])->name('admin.user');
+// Xóa user
+Route::delete('/admin/user/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.user.delete');
 
 
 
