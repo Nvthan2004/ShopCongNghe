@@ -41,9 +41,15 @@
   </style>
 </head>
 <body>
+  <!-- Kiểm tra người dùng có phải là admin không -->
+  <?php if(Auth::check() && Auth::user()->role !== 'admin'): ?>
+    <script>
+      window.location = "<?php echo e(route('user.home')); ?>"; // Điều hướng về trang home nếu không phải admin
+    </script>
+  <?php endif; ?>
 
   <!-- Header -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
     <a class="navbar-brand me-auto" href="#">Admin</a>
   
     <!-- Search bar -->
@@ -52,6 +58,7 @@
       <button class="btn btn-outline-light" type="submit">Search</button>
     </form>
   
+    <?php if(Auth::check()): ?>
     <!-- User Info & Logout -->
     <ul class="navbar-nav ms-auto">
       <!-- Thông báo -->
@@ -62,25 +69,24 @@
       </li>
       <!-- Tên người dùng -->
       <li class="nav-item me-3 d-flex align-items-center">
-        <img src="https://via.placeholder.com/30" class="rounded-circle me-2" alt="Avatar">
-        <span class="text-white">Admin</span>
+        <img src="<?php echo e(asset('storage/' . Auth::user()->img)); ?>" class="rounded-circle me-2" width="40" height="40" alt="Avatar">
+        <span class="text-white"><?php echo e(Auth::user()->username); ?></span>
       </li>
       <!-- Nút logout -->
       <li class="nav-item">
-        <a class="btn btn-outline-light" href="#">Log Out</a>
+        <a class="btn btn-outline-light" href="<?php echo e(route('user.home')); ?>">Log Out</a>
       </li>
     </ul>
+    <?php endif; ?>
   </nav>
   
-
   <div class="container-fluid">
     <div class="row">
-      
       <!-- Sidebar -->
       <div class="col-md-2 sidebar p-3">
         <h5>Menu</h5>
         <a href="<?php echo e(route('admin.home')); ?>">Dashboard</a>
-        <a href="#">Users</a>
+        <a href="<?php echo e(route('admin.user')); ?>">Users</a>
         <a href="<?php echo e(route('admin.product')); ?>">Products</a>
         <a href="<?php echo e(route('admin.category')); ?>">Categorys</a>
         <a href="<?php echo e(route('admin.brand')); ?>">Brands</a>
@@ -90,9 +96,8 @@
 
       <!-- Main Content -->
       <div class="col-md-10 p-4">
-      <?php echo $__env->yieldContent('content'); ?>
+        <?php echo $__env->yieldContent('content'); ?>
       </div>
-
     </div>
   </div>
 

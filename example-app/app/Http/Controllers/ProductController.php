@@ -142,6 +142,7 @@ class ProductController extends Controller
     
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'price' => 'required|numeric',
             'quantity' => 'required|integer',
             'category' => 'required|string|max:255',
@@ -159,6 +160,7 @@ class ProductController extends Controller
     
         $product->name = $validatedData['name'];
         $product->price = $validatedData['price'];
+        $product->description = $validatedData['description'];
         $product->quantity = $validatedData['quantity'];
         $product->category_id = $categoryId;
         $product->brand_id = $brandId;
@@ -196,6 +198,7 @@ class ProductController extends Controller
     
     public function search(Request $request)
     {
+        $user = Auth::User();
         $search = $request->input('search');
     
         $products = Product::where('name', 'like', "%$search%")
@@ -204,8 +207,8 @@ class ProductController extends Controller
     
         return view('user.single', [
             'products' => $products,
-            'search' => $search
-        ]);
+            'search' => $search 
+        ], compact('user'));
     }
     
     

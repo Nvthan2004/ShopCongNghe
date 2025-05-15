@@ -103,7 +103,16 @@
                         <div class="card-body">
                             <h6 class="product-title">{{ $product->name }}</h6>
                             <p class="text-danger fw-bold">{{ number_format($product->price, 0, ',', '.') }} ₫</p>
-                            <a href="{{ route('product.show', $product->id) }}" class="btn btn-outline-primary btn-sm w-100">Xem Chi Tiết</a>
+
+                            <a href="{{ route('product.show', $product->id) }}"
+                                class="btn btn-outline-primary btn-sm w-100">Xem Chi Tiết</a>
+                            <form id="add-to-cart-form-{{ $product->id }}" class="add-to-cart-form"
+                                action="{{ route('cart.add') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button type="submit" class="btn btn-success btn-sm w-100">Thêm vào giỏ hàng</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -125,5 +134,8 @@
     </div>
 </div>
 
+<script>
+    
+</script>
 
 @endsection

@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,26 @@ use App\Http\Controllers\UserController;
 
 Route::get('dashboard', [CrudUserController::class, 'dashboard']);
 
+
+//cart
+Route::middleware('auth')->get('/cart', [CartController::class, 'showCart'])->name('user.carts');
+
+
+// thêm giỏ hàng
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
+// sửa số lượng giỏ hàng
+Route::put('/cart/update/{user_id}/{product_id}', [CartController::class, 'updateQuantity'])->name('cart.update');
+
+Route::get('/cart/count', [CartController::class, 'getCartCount']);
+
+
+//xóa giỏ hàng
+Route::delete('/cart/delete/{userId}/{productId}', [CartController::class, 'delete'])->name('cart.delete');
+
+
+
+
+
 //dao dien nguoi dung
 // Đổi URL để tránh trùng lặp
 // Route::get('/home', [CrudUserController::class, 'home_user'])->middleware('auth')->name('user.home');
@@ -29,13 +50,13 @@ Route::get('dashboard', [CrudUserController::class, 'dashboard']);
 Route::middleware('auth')->get('/home', [CrudUserController::class, 'home'])->name('user.home');
 
 
-
+Route::middleware('auth')->get('/product/{id}', [ProductController::class, 'show_product'])->name('product.show');
 
 
 //  Route::get('/products/detail', [UserController::class, 'product_detail'])->name('user.detail_product');
 
 // chi tiết sản phẩm
- Route::middleware('auth')->get('/product/{id}', [ProductController::class, 'show_product'])->name('product.show');
+Route::middleware('auth')->get('/product/{id}', [ProductController::class, 'show_product'])->name('product.show');
 // danh sách sản phẩm
 Route::middleware('auth')->get('/products', [ProductController::class, 'product_user_view'])->name('user.product_view');
 
@@ -107,8 +128,13 @@ Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
 Route::get('/', function () {
     return view('welcome');
 });
+//List user
+Route::middleware('auth')->get('/admin/user', [UserController::class, 'list_user'])->name('admin.user');
+
+
+
 // tiem kiem
-Route::get('/search', [ProductController::class, 'search'])->name('user.product.search');
+Route::middleware('auth')->get('/search', [ProductController::class, 'search'])->name('user.product.search');
 
 
 
