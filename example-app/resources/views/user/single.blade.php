@@ -1,15 +1,10 @@
 @extends('user.dashboard_user')
 
 @section('content')
-<<<<<<< HEAD
-<div class="container mt-3">
-@if(!empty($search))
-        <h4>Kết quả tìm kiếm cho: <strong>{{ $search }}</strong></h4>
-=======
+
 <div class="container mt-4">
     @if(!empty($search))
     <h4>Kết quả tìm kiếm cho: <strong>{{ $search }}</strong></h4>
->>>>>>> main
     @endif
     <div class="row g-3 mt-3">
         @foreach($products as $item)
