@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -143,6 +144,9 @@ Route::middleware('auth')->get('/setting', [UserController::class, 'edit'])->nam
 Route::put('/setting', [UserController::class, 'update'])->name('user.update');
 //thay doi mat khau
 Route::post('/user/change-password', [UserController::class, 'changePassword'])->name('user.changePassword');
+//thay doi email
+Route::post('/user/change-email', [UserController::class, 'changeEmail'])->name('user.changeEmail');
+
 
 
 

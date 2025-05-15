@@ -85,5 +85,17 @@ class UserController extends Controller{
 
     return redirect()->back()->with('success', 'Mật khẩu đã được thay đổi thành công.');
 }
+public function changeEmail(Request $request)
+{
+    $request->validate([
+        'new_email' => 'required|email|unique:users,email,' . auth()->id(),
+    ]);
+
+    $user = auth()->user();
+    $user->email = $request->new_email;
+    $user->save();
+
+    return back()->with('success', 'Email đã được cập nhật thành công!');
+}
 
 }
