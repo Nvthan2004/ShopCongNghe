@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
-
+use App\Models\Category;
 class CrudUserController extends Controller
 {
      /**
@@ -20,22 +20,18 @@ class CrudUserController extends Controller
     {
         return view('crud_user.login');
     }
-    public function home()
-    {
-        $user = Auth::user();
-    
-        if ($user) {
-            // Nếu người dùng đã đăng nhập, hiển thị thông tin user
-            $featuredProducts = Product::orderBy('created_at', 'desc')->take(8)->get();
-            return view('user.index', compact('user', 'featuredProducts'));
-        }
-    
-        // Nếu không đăng nhập, hiển thị danh sách sản phẩm
-        $featuredProducts = Product::orderBy('created_at', 'desc')->take(8)->get();
-        return view('user.index', ['featuredProducts' => $featuredProducts]);
-    }
-    
-    
+public function home()
+{
+    $user = Auth::user();
+
+    // Lấy tất cả category cùng với 8 sản phẩm mới nhất của mỗi loại
+    $categories = Category::with(['products' => function ($query) {
+        $query->orderBy('created_at', 'desc')->take(60);
+    }])->get();
+
+    return view('user.index', compact('user', 'categories'));
+}
+   
 
     /**
      * User submit form login
