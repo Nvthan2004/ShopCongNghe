@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('id_user'); // Khóa ngoại cho user
+            $table->unsignedBigInteger('id_product'); // Khóa ngoại cho product
+            $table->integer('soluong'); // Số lượng sản phẩm
         });
     }
 
