@@ -50,7 +50,7 @@ class UserController extends Controller{
     $data = $request->validate([
         'username' => 'required|string|max:255',
         'email' => 'required|email|unique:users,email,' . $user->id,
-        'avatar' => 'nullable|image|max:2048', // field từ form
+        'avatar' => 'nullable|image|max:2048',// field từ form
     ]);
 
     // Xử lý ảnh đại diện
