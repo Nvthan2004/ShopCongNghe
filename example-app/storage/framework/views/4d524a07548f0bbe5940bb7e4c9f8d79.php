@@ -49,42 +49,49 @@
     </div>
 <!-- Sản phẩm -->
 <div class="container my-5">
-    <div id="featuredProductsCarousel" class="carousel slide" data-bs-ride="carousel">
-        <h3 class="mb-4 text-center fw-bold">Sản Phẩm mới</h3>
-
-        <div class="carousel-inner">
-            <?php $__currentLoopData = $featuredProducts->chunk(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <!-- Chia sản phẩm thành các nhóm 4 -->
-            <div class="carousel-item <?php echo e($loop->first ? 'active' : ''); ?>" data-bs-interval="3000">
-                <div class="row g-4">
-                    <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="col-md-3">
-                        <div class="card product-card shadow-sm">
-                            <img src="<?php echo e(asset('storage/' . $product->image)); ?>" class="card-img-top fixed-size-img" alt="<?php echo e($product->name); ?>">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo e($product->name); ?></h5>
-                                <p class="card-text"><?php echo e($product->description); ?></p>
-                                <a href="<?php echo e(route('product.show', $product->id)); ?>" class="btn btn-primary w-100">Mua ngay</a>
-                                
+  <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <?php if($category->products->count() > 0): ?>
+        <div class="container my-5">
+            <h3 class="mb-4 fw-bold text-center text-uppercase"><?php echo e($category->name); ?></h3>
+            <div id="carouselCategory<?php echo e($category->id); ?>" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <?php $__currentLoopData = $category->products->chunk(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="carousel-item <?php echo e($loop->first ? 'active' : ''); ?>">
+                            <div class="row g-4">
+                                <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <div class="col-md-3">
+                                        <div class="card product-card shadow-sm">
+                                            <img src="<?php echo e(asset('storage/' . $product->image)); ?>" class="card-img-top fixed-size-img" alt="<?php echo e($product->name); ?>">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><?php echo e($product->name); ?></h5>
+                                                <p class="card-text"><?php echo e($product->description); ?></p>
+                                                <a href="<?php echo e(route('product.show', $product->id)); ?>" class="btn btn-primary w-100">Mua ngay</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </div>
-                    </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-            </div>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        </div>
 
-        <!-- Nút điều hướng -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#featuredProductsCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselCategory<?php echo e($category->id); ?>" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Trước</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselCategory<?php echo e($category->id); ?>" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Tiếp</span>
+                </button>
+            </div>
+        </div>
+    <?php endif; ?>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
 </div>
+
+
+
 
 
 

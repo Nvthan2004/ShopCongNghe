@@ -466,7 +466,7 @@
                             <span class="fw-bold" id="user-name">{{ $user->username }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="#" id="logout-btn"><i class="bi bi-gear-fill"></i>
+                            <li><a class="dropdown-item" href="{{ route('user.edit')}}" id="logout-btn"><i class="bi bi-gear-fill"></i>
                                     cài đặt</a></li>
                             @if($user->role === 'admin')
                             <li><a class="dropdown-item" href="{{ route('admin.home') }}" id="admin-btn"><i
@@ -629,7 +629,7 @@
     document.head.appendChild(style);
     </script>
 
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
