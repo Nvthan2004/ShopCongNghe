@@ -8,6 +8,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -146,6 +148,16 @@ Route::put('/setting', [UserController::class, 'update'])->name('user.update');
 Route::post('/user/change-password', [UserController::class, 'changePassword'])->name('user.changePassword');
 //thay doi email
 Route::post('/user/change-email', [UserController::class, 'changeEmail'])->name('user.changeEmail');
+
+
+
+
+///thanh toán
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/payment', [PaymentController::class, 'payment'])->name('user.payment');
+    Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+});
 
 
 

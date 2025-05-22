@@ -116,9 +116,9 @@
                         </span>
                     </div>
 
-                    <button class="btn btn-primary w-100 checkout-btn">
+                    <a href="<?php echo e(route('user.payment')); ?>" class="btn btn-primary w-100 checkout-btn">
                         <i class="fas fa-lock me-2"></i>Đặt Hàng
-                    </button>
+</a>
                 </div>
             </div>
         </div>
