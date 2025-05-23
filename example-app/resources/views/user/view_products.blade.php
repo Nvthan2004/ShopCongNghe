@@ -8,6 +8,16 @@
     <p class="text-muted">Khám phá các sản phẩm công nghệ mới nhất tại Shop Công Nghệ</p>
 </div>
 
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
 <!-- Bộ lọc & sản phẩm -->
 <div class="container my-5">
     <div class="row">
@@ -105,12 +115,14 @@
                             <p class="text-danger fw-bold">{{ number_format($product->price, 0, ',', '.') }} ₫</p>
 
                             <a href="{{ route('product.show', $product->id) }}"
-                                class="btn btn-outline-primary btn-sm w-100">Xem Chi Tiết</a>
+                                class="btn btn-outline-primary btn-sm w-100 my-2">Xem Chi Tiết</a>
                             <form id="add-to-cart-form-{{ $product->id }}" class="add-to-cart-form"
                                 action="{{ route('cart.add') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <button type="submit" class="btn btn-success btn-sm w-100">Thêm vào giỏ hàng</button>
+                                <button type="submit" class="btn btn-success btn-sm w-100 rounded-3 shadow-sm">
+                                    <i class="bi bi-cart-plus me-2"></i> Thêm vào giỏ hàng
+                                </button>
                             </form>
 
                         </div>
@@ -135,7 +147,7 @@
 </div>
 
 <script>
-    
+
 </script>
 
 @endsection
