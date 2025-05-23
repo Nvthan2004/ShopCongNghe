@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->text('address')->nullable();
             $table->decimal('total_price', 15, 2);
             $table->string('payment_method');
-            $table->string('status')->default('pending');
+            $table->enum('status', ['processing', 'completed', 'cancelled'])->default('processing');
             $table->timestamps();
         });
     }

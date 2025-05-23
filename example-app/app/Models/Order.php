@@ -20,6 +20,9 @@ class Order extends Model
         'payment_method',
         'status',
     ];
+    const STATUS_PROCESSING = 'processing';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_CANCELLED = 'cancelled';
 
     // Quan hệ với User
     public function user()

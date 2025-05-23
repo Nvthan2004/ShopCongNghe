@@ -16,6 +16,7 @@ class OrderItem extends Model
         'price',
     ];
 
+
     // Quan hệ với Order
     public function order()
     {
