@@ -242,13 +242,6 @@ class ProductController extends Controller
         ], compact('user'));
     }
     
-    public function index()
-{
-    $categories = Category::with(['products' => function ($query) {
-        $query->orderBy('created_at', 'desc')->take(8); // lấy 8 sản phẩm mới mỗi loại
-    }])->get();
 
-    return view('user.index', compact('categories'));
-}
           
 }

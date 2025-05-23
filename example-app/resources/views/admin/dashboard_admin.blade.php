@@ -92,7 +92,7 @@
         <a href="{{ route('admin.brand') }}">Brands</a>
         <a href="{{ route('oder.admin.list') }}">Order</a>
         <a href="#">Settings</a>
-      </div>
+</div>
 
       <!-- Main Content -->
       <div class="col-md-10 p-4">
