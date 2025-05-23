@@ -92,7 +92,7 @@
         <a href="<?php echo e(route('admin.brand')); ?>">Brands</a>
         <a href="<?php echo e(route('oder.admin.list')); ?>">Order</a>
         <a href="#">Settings</a>
-      </div>
+</div>
 
       <!-- Main Content -->
       <div class="col-md-10 p-4">
@@ -108,5 +108,4 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
-<?php /**PATH D:\HK6\Back-end 2\Nhóm B\example-app\resources\views/admin/dashboard_admin.blade.php ENDPATH**/ ?>
+</html><?php /**PATH D:\HK6\Back-end 2\Nhóm B\example-app\resources\views/admin/dashboard_admin.blade.php ENDPATH**/ ?>
