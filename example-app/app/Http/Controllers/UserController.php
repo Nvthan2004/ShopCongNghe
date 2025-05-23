@@ -43,34 +43,35 @@ class UserController extends Controller{
         $user = Auth::User();
     return view('user.setting', compact('user'));
     }
-   public function update(Request $request)
+  public function update(Request $request)
 {
-    $user = auth()->user();
-
-    $data = $request->validate([
-        'username' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email,' . $user->id,
-        'avatar' => 'nullable|image|max:2048',// field từ form
+    $request->validate([
+        'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-    // Xử lý ảnh đại diện
+    $user = auth()->user();
+
+    // Xử lý upload avatar mới nếu có
     if ($request->hasFile('avatar')) {
-        // Xóa ảnh cũ nếu có
-        if ($user->img) {
-            Storage::disk('public')->delete($user->img); // dùng đúng tên cột img
+        // Xóa ảnh cũ nếu tồn tại
+        if ($user->img && \Storage::disk('public')->exists($user->img)) {
+            \Storage::disk('public')->delete($user->img);
         }
 
-        // Lưu file và gán tên file vào cột img
-        $data['img'] = $request->file('avatar')->store('images', 'public');
+        // Lưu ảnh mới
+        $file = $request->file('avatar');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('avatars', $filename, 'public');
+
+        // Cập nhật đường dẫn ảnh
+        $user->img = $path;
     }
 
-    // Xóa 'avatar' khỏi mảng vì không có cột avatar trong DB
-    unset($data['avatar']);
+    $user->save();
 
-    $user->update($data);
-
-    return redirect()->route('user.edit')->with('success', 'Cập nhật thành công!');
+    return back()->with('success', 'Cập nhật thông tin thành công!');
 }
+
 
     public function changePassword(Request $request)
 {
