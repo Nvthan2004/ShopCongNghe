@@ -88,29 +88,48 @@ class BrandController extends Controller
         return view('admin.crud_brand.update_brand', compact('brand','user'));
     }
 
-    public function update(Request $request, $id)
-    {
+   public function update(Request $request, $id)
+{
+    try {
         $brand = Brand::findOrFail($id);
 
+        // Validate các trường
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'updated_at' => 'required|date', // Bắt buộc có updated_at gửi từ form
         ]);
 
-        // Xử lý logo
+        // So sánh updated_at form và DB
+        $formUpdatedAt = new \DateTime($validatedData['updated_at']);
+        $dbUpdatedAt = new \DateTime($brand->updated_at);
+
+        if ($formUpdatedAt < $dbUpdatedAt) {
+            // Dữ liệu đã bị chỉnh sửa sau khi form tải
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Dữ liệu đã bị thay . Vui lòng tải lại trang để cập nhật mới nhất.');
+        }
+
+        // Xử lý logo nếu có upload mới
         if ($request->hasFile('logo')) {
             // Xóa logo cũ nếu có
             if ($brand->logo) {
                 Storage::delete('public/' . $brand->logo);
             }
-
             $validatedData['logo'] = $request->file('logo')->store('logos', 'public');
         }
 
-        // Cập nhật dữ liệu
+        // Cập nhật dữ liệu (bỏ updated_at ra khỏi validatedData nếu có)
+        unset($validatedData['updated_at']);
         $brand->update($validatedData);
 
-        return redirect()->route('admin.brand')->with('success', 'Brand updated successfully!');
+        return redirect()->route('admin.brand')->with('success', 'Cập nhật thương hiệu thành công!');
+
+    } catch (\Exception $e) {
+        return redirect()->back()->withInput()->with('error', 'Dữ liệu không hợp lệ hoặc có lỗi xảy ra!');
     }
+}
+
 }
