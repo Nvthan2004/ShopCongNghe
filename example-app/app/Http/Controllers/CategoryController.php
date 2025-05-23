@@ -87,28 +87,37 @@ public function update_cate(Request $request, $id)
     try {
         $category = Category::findOrFail($id);
 
+        // Validate form data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'updated_at' => 'required|string', // thêm để nhận updated_at từ form
         ]);
 
-        // Xử lý hình ảnh
+        // Kiểm tra concurrency: so sánh updated_at gửi từ form với bản mới nhất trong DB
+        if ($category->updated_at->toDateTimeString() !== $validatedData['updated_at']) {
+            return back()
+                ->withErrors(['error' => 'Dữ liệu đã được thay đổi bởi người khác. Vui lòng tải lại trang và thử lại.'])
+                ->withInput();
+        }
+
+        // Xử lý hình ảnh mới (nếu có)
         if ($request->hasFile('image')) {
-            // Xóa hình ảnh cũ nếu tồn tại
             if ($category->image) {
                 Storage::delete('public/' . $category->image);
             }
-
             $validatedData['image'] = $request->file('image')->store('image', 'public');
+        } else {
+            unset($validatedData['image']);
         }
 
         // Cập nhật dữ liệu
         $category->update($validatedData);
 
         return redirect()->route('admin.category')->with('success', 'Category updated successfully!');
+
     } catch (\Exception $e) {
-        // Gửi thông báo lỗi
         return back()->withErrors(['error' => 'An error occurred while updating the category. Please try again.']);
     }
 }
