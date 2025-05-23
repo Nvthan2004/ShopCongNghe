@@ -27,7 +27,7 @@
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Tên đăng nhập</label>
                                     <input type="text" name="username" class="form-control"
-                                        value="{{ old('username', auth()->user()->username) }}"readonly>
+                                        value="{{ old('username', auth()->user()->username) }}" readonly>
                                 </div>
 
                                 <!-- Email -->
@@ -72,7 +72,11 @@
                                 <div class="mb-3 w-100">
                                     <label for="avatar" class="form-label">Thay ảnh đại diện</label>
                                     <input type="file" name="avatar" class="form-control">
+                                    @error('avatar')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                    @enderror
                                 </div>
+
                             </div>
                         </div>
 
