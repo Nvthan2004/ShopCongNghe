@@ -225,9 +225,7 @@ function updateOrderSummary() {
     // Cập nhật giá tạm tính
     document.getElementById('subtotal').textContent = formatCurrency(totalPrice);
 
-    // Cập nhật tổng cộng (bao gồm phí vận chuyển 30,000 ₫)
-    const shippingFee = 30000;
-    document.getElementById('grand-total').textContent = formatCurrency(totalPrice + shippingFee);
+    document.getElementById('grand-total').textContent = formatCurrency(totalPrice );
 }
 
 // Định dạng tiền tệ
