@@ -8,6 +8,7 @@ use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redis;
 
 class OrderController extends Controller
 {
@@ -232,8 +233,8 @@ public function list_oders(Request $request)
 
 
     public function store(Request $request)
-    {
-        $request->validate([
+{
+    $request->validate([
         'firstName' => 'required|string|max:255',
         'lastName'  => 'required|string|max:255',
         'email'     => 'required|email',
@@ -245,56 +246,59 @@ public function list_oders(Request $request)
         'phone.regex'    => 'Số điện thoại không hợp lệ. Phải bắt đầu bằng 0 và có 10 hoặc 11 chữ số.',
     ]);
 
-        $user = Auth::user();
+    $user = Auth::user();
 
-        // Lấy giỏ hàng hiện tại của user
-        $carts = Cart::with('product')->where('id_user', $user->id)->get();
+    // Lấy giỏ hàng hiện tại của user
+    $carts = Cart::with('product')->where('id_user', $user->id)->get();
 
-        if ($carts->isEmpty()) {
-            return back()->withErrors(['error' => 'Giỏ hàng của bạn đang trống']);
-        }
-
-        // Bắt đầu transaction
-        DB::beginTransaction();
-
-        try {
-            // Tạo đơn hàng mới
-            $order = Order::create([
-                'user_id' => $user->id,
-                'first_name' => $request->firstName,
-                'last_name' => $request->lastName,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'city_code' => $request->city,
-                'address' => $request->address,
-                'total_price' => $carts->reduce(function ($total, $cart) {
-                    return $total + ($cart->product->price * $cart->soluong);
-                }, 0),
-                'payment_method' => 'Thanh Toán Khi nhận hàng',
-                'status' => Order::STATUS_PROCESSING,
-            ]);
-
-            // Tạo chi tiết đơn hàng (order items)
-            foreach ($carts as $cart) {
-                OrderItem::create([
-                    'order_id' => $order->id,
-                    'product_id' => $cart->product->id,
-                    'quantity' => $cart->soluong,
-                    'price' => $cart->product->price,
-                ]);
-            }
-
-            // Xóa giỏ hàng sau khi tạo đơn
-            Cart::where('id_user', $user->id)->delete();
-
-            DB::commit();
-
-            return redirect()->route('user.carts')
-    ->with('success', 'Đơn hàng của bạn đang được xử lý và sẽ sớm hoàn tất!');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->withErrors(['error' => 'Có lỗi xảy ra khi tạo đơn hàng: ' . $e->getMessage()]);
-        }
+    if ($carts->isEmpty()) {
+        // Trả về thông báo đơn hàng đang được xử lý nếu giỏ hàng trống
+        return redirect()->route('user.carts')
+            ->with('info', 'Đơn hàng này đang được xử lý.');
     }
+
+    // Bắt đầu transaction
+    DB::beginTransaction();
+
+    try {
+        // Tạo đơn hàng mới
+        $order = Order::create([
+            'user_id' => $user->id,
+            'first_name' => $request->firstName,
+            'last_name' => $request->lastName,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'city_code' => $request->city,
+            'address' => $request->address,
+            'total_price' => $carts->reduce(function ($total, $cart) {
+                return $total + ($cart->product->price * $cart->soluong);
+            }, 0),
+            'payment_method' => 'Thanh Toán Khi nhận hàng',
+            'status' => Order::STATUS_PROCESSING,
+        ]);
+
+        // Tạo chi tiết đơn hàng (order items)
+        foreach ($carts as $cart) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $cart->product->id,
+                'quantity' => $cart->soluong,
+                'price' => $cart->product->price,
+            ]);
+        }
+
+        // Xóa giỏ hàng sau khi tạo đơn
+        Cart::where('id_user', $user->id)->delete();
+
+        DB::commit();
+
+        return redirect()->route('user.carts')
+            ->with('success', 'Đơn hàng của bạn đang được xử lý và sẽ sớm hoàn tất!');
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return back()->withErrors(['error' => 'Có lỗi xảy ra khi tạo đơn hàng: ' . $e->getMessage()]);
+    }
+}
+
 }

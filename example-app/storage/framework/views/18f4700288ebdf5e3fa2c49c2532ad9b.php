@@ -9,6 +9,13 @@
     </div>
     <?php endif; ?>
 
+    <?php if(session('info')): ?>
+    <div class="alert alert-info">
+        <?php echo e(session('info')); ?>
+
+    </div>
+<?php endif; ?>
+
     <?php if(session('error')): ?>
     <div class="alert alert-danger">
         <?php echo e(session('error')); ?>
