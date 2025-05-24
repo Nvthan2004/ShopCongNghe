@@ -90,7 +90,7 @@
         <a href="<?php echo e(route('admin.product')); ?>">Products</a>
         <a href="<?php echo e(route('admin.category')); ?>">Categorys</a>
         <a href="<?php echo e(route('admin.brand')); ?>">Brands</a>
-        <a href="#">Revenue</a>
+        <a href="<?php echo e(route('oder.admin.list')); ?>">Order</a>
         <a href="#">Settings</a>
 </div>
 

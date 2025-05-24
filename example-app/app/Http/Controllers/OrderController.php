@@ -289,7 +289,7 @@ public function list_oders(Request $request)
 
             DB::commit();
 
-            return redirect()->route('user.payment')
+            return redirect()->route('user.carts')
     ->with('success', 'Đơn hàng của bạn đang được xử lý và sẽ sớm hoàn tất!');
 
         } catch (\Exception $e) {
