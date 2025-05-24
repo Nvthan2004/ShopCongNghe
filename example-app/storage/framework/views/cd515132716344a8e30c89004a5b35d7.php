@@ -429,10 +429,10 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar  navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="<?php echo e(route('user.home')); ?>">Shop<span>CôngNghệ</span></a>
-            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" data-b   s-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <form class="d-flex ms-3" action="<?php echo e(route('user.product.search')); ?>" method="GET">
