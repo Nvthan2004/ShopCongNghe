@@ -513,6 +513,8 @@
 
 
     document.addEventListener('DOMContentLoaded', function() {
+
+        
         // Lấy số lượng hiện tại trong giỏ hàng khi trang được tải
         fetch('/cart/count')
             .then(response => response.json())
