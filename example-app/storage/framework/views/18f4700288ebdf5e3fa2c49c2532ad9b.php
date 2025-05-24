@@ -49,15 +49,16 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="d-flex align-items-center justify-content-md-center">
-                                    <button class="btn btn-outline-secondary btn-circle me-2 quantity-decrease" 
-                                         data-user-id="<?php echo e($item->id_user); ?>" data-product-id="<?php echo e($item->id_product); ?>">
+                                    <button class="btn btn-outline-secondary btn-circle me-2 quantity-decrease"
+                                        data-user-id="<?php echo e($item->id_user); ?>" data-product-id="<?php echo e($item->id_product); ?>">
                                         <i class="fas fa-minus"></i>
                                     </button>
-                                    <input type="number" class="form-control quantity-input" value="<?php echo e($item->soluong); ?>"
-                                        min="1" data-user-id="<?php echo e($item->id_user); ?>" data-product-id="<?php echo e($item->id_product); ?>"
+                                    <input type="number" class="form-control quantity-input"
+                                        value="<?php echo e($item->soluong); ?>" min="1" data-user-id="<?php echo e($item->id_user); ?>"
+                                        data-product-id="<?php echo e($item->id_product); ?>"
                                         onchange="updateQuantity('<?php echo e($item->id_user); ?>', '<?php echo e($item->id_product); ?>', this)">
                                     <button class="btn btn-outline-secondary btn-circle ms-2 quantity-increase"
-                                         data-user-id="<?php echo e($item->id_user); ?>" data-product-id="<?php echo e($item->id_product); ?>">
+                                        data-user-id="<?php echo e($item->id_user); ?>" data-product-id="<?php echo e($item->id_product); ?>">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -94,84 +95,36 @@
                     <h4 class="mb-3">Tóm Tắt Đơn Hàng</h4>
 
                     <div class="d-flex justify-content-between mb-2">
-                       <span>Tổng sản phẩm (<span id="total-items"><?php echo e($cartItems->sum('soluong')); ?></span>)</span>
-                        <span id="subtotal"><?php echo e(number_format($cartItems->sum(fn($item) => $item->product->price * $item->soluong), 0, ',', '.')); ?>
+                        <span>Tổng sản phẩm (<span id="total-items"><?php echo e($cartItems->sum('soluong')); ?></span>)</span>
+                        <span
+                            id="subtotal"><?php echo e(number_format($cartItems->sum(fn($item) => $item->product->price * $item->soluong), 0, ',', '.')); ?>
 
                             ₫</span>
                     </div>
 
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Phí vận chuyển</span>
-                        <span id="shipping-fee">30,000 ₫</span>
-                    </div>
 
                     <div class="divider"></div>
 
                     <div class="d-flex justify-content-between fw-bold fs-5 mb-3">
                         <span>Tổng cộng</span>
                         <span class="text-primary" id="grand-total">
-                            <?php echo e(number_format($cartItems->sum(fn($item) => $item->product->price * $item->soluong) + 30000, 0, ',', '.')); ?>
+                            <?php echo e(number_format($cartItems->sum(fn($item) => $item->product->price * $item->soluong), 0, ',', '.')); ?>
 
                             ₫
                         </span>
                     </div>
-
-                    <a href="<?php echo e(route('user.payment')); ?>" class="btn btn-primary w-100 checkout-btn">
+                    <a href="<?php echo e($cartItems->isEmpty() ? '#' : route('user.payment')); ?>"
+                        class="btn btn-primary w-100 checkout-btn <?php echo e($cartItems->isEmpty() ? 'disabled' : ''); ?>"
+                        onclick="<?php echo e($cartItems->isEmpty() ? 'alert(\'Giỏ hàng của bạn trống. Không thể thanh toán.\')' : ''); ?>">
                         <i class="fas fa-lock me-2"></i>Đặt Hàng
-</a>
+                    </a>
+
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Sản phẩm tương tự  -->
-    <div class="row mt-5">
-        <div class="col-12">
-            <h4 class="mb-4">Có thể bạn sẽ thích</h4>
-            <div class="row row-cols-2 row-cols-md-4 g-4">
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <img src="/api/placeholder/300/200" class="card-img-top" alt="Sản phẩm gợi ý">
-                        <div class="card-body">
-                            <h6 class="card-title">Áo Khoác Denim Unisex</h6>
-                            <p class="card-text text-primary fw-bold">399,000 ₫</p>
-                            <button class="btn btn-sm btn-outline-primary w-100">Thêm vào giỏ</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <img src="/api/placeholder/300/200" class="card-img-top" alt="Sản phẩm gợi ý">
-                        <div class="card-body">
-                            <h6 class="card-title">Quần Jeans Skinny</h6>
-                            <p class="card-text text-primary fw-bold">459,000 ₫</p>
-                            <button class="btn btn-sm btn-outline-primary w-100">Thêm vào giỏ</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <img src="/api/placeholder/300/200" class="card-img-top" alt="Sản phẩm gợi ý">
-                        <div class="card-body">
-                            <h6 class="card-title">Đồng hồ thông minh</h6>
-                            <p class="card-text text-primary fw-bold">1,299,000 ₫</p>
-                            <button class="btn btn-sm btn-outline-primary w-100">Thêm vào giỏ</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <img src="/api/placeholder/300/200" class="card-img-top" alt="Sản phẩm gợi ý">
-                        <div class="card-body">
-                            <h6 class="card-title">Tai nghe không dây</h6>
-                            <p class="card-text text-primary fw-bold">699,000 ₫</p>
-                            <button class="btn btn-sm btn-outline-primary w-100">Thêm vào giỏ</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
@@ -180,19 +133,19 @@
 // Cập nhật số lượng sản phẩm
 function updateQuantity(userId, productId, inputElement) {
     const newQuantity = parseInt(inputElement.value);
-    
+
     if (newQuantity < 1) {
         alert("Số lượng phải lớn hơn hoặc bằng 1.");
         inputElement.value = 1;
         return;
     }
-    
+
     // Hiển thị trạng thái đang tải
     const cartItem = document.getElementById(`cart-item-${productId}`);
     if (cartItem) {
         cartItem.style.opacity = '0.7';
     }
-    
+
     fetch(`/cart/update/${userId}/${productId}`, {
             method: 'PUT',
             headers: {
@@ -272,7 +225,9 @@ function updateOrderSummary() {
 
 // Định dạng tiền tệ
 function formatCurrency(amount) {
-    return new Intl.NumberFormat('vi-VN', { style: 'decimal' }).format(amount) + ' ₫';
+    return new Intl.NumberFormat('vi-VN', {
+        style: 'decimal'
+    }).format(amount) + ' ₫';
 }
 
 // Sự kiện nút tăng và giảm số lượng

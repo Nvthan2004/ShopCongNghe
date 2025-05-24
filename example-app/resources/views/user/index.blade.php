@@ -67,7 +67,7 @@
                                             <div class="card-body">
                                                 <h5 class="card-title">{{ $product->name }}</h5>
                                                 <p class="card-text">{{ $product->description }}</p>
-                                                <a href="{{ route('product.show', $product->id) }}" class="btn btn-primary w-100">Mua ngay</a>
+                                                <a href="{{ route('product.show', $product->id) }}" class="btn btn-primary w-100">Xem chi tiết</a>
                                             </div>
                                         </div>
                                     </div>
