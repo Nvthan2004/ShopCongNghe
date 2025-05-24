@@ -1,6 +1,3 @@
-@extends('admin.dashboard_admin')
-
-@section('content')
 <?php $__env->startSection('content'); ?>
 <div class="container my-5">
     <h1 class="text-center mb-4">Cập Nhật Sản Phẩm</h1>
@@ -15,7 +12,7 @@
         </div>
     <?php endif; ?>
 
-    <form action="<?php echo e(route('products.update', $product->id)); ?>" method="POST" enctype="multipart/form-data">
+    <form action="<?php echo e(route('products.update', $product->id)); ?>" method="POST" enctype="multipart/form-data" id="updateProductForm">
         <?php echo csrf_field(); ?>
         <?php echo method_field('PUT'); ?>
         <div class="mb-3">
@@ -25,6 +22,10 @@
         <div class="mb-3">
             <label for="price" class="form-label">Giá</label>
             <input type="number" class="form-control" id="price" name="price" value="<?php echo e($product->price); ?>" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Mô tả</label>
+            <textarea class="form-control" id="description" name="description" rows="4" required><?php echo e($product->description); ?></textarea>
         </div>
         <div class="mb-3">
             <label for="quantity" class="form-label">Số lượng</label>
@@ -58,5 +59,18 @@
 </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\ShopCongNghe\example-app\resources\views/admin/crud_product/update_product.blade.php ENDPATH** */ ?>
- @endsection
+<?php $__env->startSection('scripts'); ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('updateProductForm');
+        if (form) {
+            form.addEventListener('submit', function () {
+                // Gửi tín hiệu cho các tab khác biết có cập nhật
+                localStorage.setItem('productUpdated', Date.now());
+            });
+        }
+    });
+</script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\ShopCongNghe\example-app\resources\views/admin/crud_product/update_product.blade.php ENDPATH**/ ?>

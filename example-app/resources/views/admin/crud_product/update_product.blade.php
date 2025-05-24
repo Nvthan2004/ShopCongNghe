@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data" id="updateProductForm">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -27,7 +27,7 @@
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Mô tả</label>
-            <textarea class="form-control" id="description" name="description" rows="4"required>{{ $product->description }}</textarea>
+            <textarea class="form-control" id="description" name="description" rows="4" required>{{ $product->description }}</textarea>
         </div>
         <div class="mb-3">
             <label for="quantity" class="form-label">Số lượng</label>
@@ -59,4 +59,18 @@
         <button type="submit" class="btn btn-success">Cập Nhật</button>
     </form>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('updateProductForm');
+        if (form) {
+            form.addEventListener('submit', function () {
+                // Gửi tín hiệu cho các tab khác biết có cập nhật
+                localStorage.setItem('productUpdated', Date.now());
+            });
+        }
+    });
+</script>
 @endsection

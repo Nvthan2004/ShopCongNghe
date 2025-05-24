@@ -48,19 +48,29 @@
                         @method('DELETE')
                         <button class="btn btn-danger btn-sm">Xóa</button>
                     </form>
-
                 </td>
             </tr>
             @empty
             <tr>
-                <td colspan="7" class="text-center">Không có sản phẩm nào</td>
+                <td colspan="10" class="text-center">Không có sản phẩm nào</td>
             </tr>
             @endforelse
         </tbody>
     </table>
     <div class="d-flex justify-content-center mt-4">
-    {{ $products->links('pagination::bootstrap-4') }}
+        {{ $products->links('pagination::bootstrap-4') }}
+    </div>
 </div>
+@endsection
 
-</div>
+@section('scripts')
+<script>
+    // Khi người dùng chỉnh sửa hoặc xóa sản phẩm ở tab khác, tab hiện tại sẽ reload để cập nhật danh sách
+    window.addEventListener('storage', function (event) {
+        if (event.key === 'productUpdated') {
+            alert('Danh sách sản phẩm đã được cập nhật ở một tab khác. Trang sẽ được tải lại để hiển thị dữ liệu mới.');
+            location.reload();
+        }
+    });
+</script>
 @endsection

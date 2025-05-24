@@ -46,21 +46,32 @@
                         <?php echo method_field('DELETE'); ?>
                         <button class="btn btn-danger btn-sm">Xóa</button>
                     </form>
-
                 </td>
             </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
             <tr>
-                <td colspan="7" class="text-center">Không có sản phẩm nào</td>
+                <td colspan="10" class="text-center">Không có sản phẩm nào</td>
             </tr>
             <?php endif; ?>
         </tbody>
     </table>
     <div class="d-flex justify-content-center mt-4">
-    <?php echo e($products->links('pagination::bootstrap-4')); ?>
+        <?php echo e($products->links('pagination::bootstrap-4')); ?>
 
-</div>
-
+    </div>
 </div>
 <?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('scripts'); ?>
+<script>
+    // Khi người dùng chỉnh sửa hoặc xóa sản phẩm ở tab khác, tab hiện tại sẽ reload để cập nhật danh sách
+    window.addEventListener('storage', function (event) {
+        if (event.key === 'productUpdated') {
+            alert('Danh sách sản phẩm đã được cập nhật ở một tab khác. Trang sẽ được tải lại để hiển thị dữ liệu mới.');
+            location.reload();
+        }
+    });
+</script>
+<?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\ShopCongNghe\example-app\resources\views/admin/crud_product/list_product.blade.php ENDPATH**/ ?>
