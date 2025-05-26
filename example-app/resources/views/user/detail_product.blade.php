@@ -17,7 +17,15 @@
                 <li>Bộ nhớ: {{ $product->storage }}GB</li>
                 <li>Pin: {{ $product->battery }}mAh</li>
             </ul>
-            <button class="btn btn-primary mt-3">Mua Ngay</button>
+            <form id="add-to-cart-form-{{ $product->id }}" class="add-to-cart-form"
+      action="{{ route('cart.add') }}" method="POST">
+    @csrf
+    <input type="hidden" name="product_id" value="{{ $product->id }}">
+    <button type="submit" class="btn btn-success btn-sm w-100 rounded-3 shadow-sm">
+        <i class="bi bi-cart-plus me-2"></i> Thêm vào giỏ hàng
+    </button>
+</form>
+
         </div>
     </div>
 

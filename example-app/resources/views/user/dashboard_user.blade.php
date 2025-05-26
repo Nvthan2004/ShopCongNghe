@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
     .nav-item .dropdown-toggle img {
@@ -445,7 +446,7 @@
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item"><a class="nav-link " href="{{ route('user.home') }}">Trang Chủ</a></li>
                     <li class="nav-item"><a class="nav-link " href="{{ route('user.product_view') }}">Sản Phẩm</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Liên Hệ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('oder.list') }}">Đơn hàng</a></li>
                     <!-- cart -->
                     <li class="nav-item position-relative ms-3">
                         <a class="nav-link" href="{{ route('user.carts') }}">
@@ -512,6 +513,8 @@
 
 
     document.addEventListener('DOMContentLoaded', function() {
+
+        
         // Lấy số lượng hiện tại trong giỏ hàng khi trang được tải
         fetch('/cart/count')
             .then(response => response.json())

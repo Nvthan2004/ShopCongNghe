@@ -155,8 +155,32 @@ Route::post('/user/change-email', [UserController::class, 'changeEmail'])->name(
 ///thanh toán
 
 Route::middleware(['auth'])->group(function () {
+    // oder đơn hàng
     Route::get('/payment', [PaymentController::class, 'payment'])->name('user.payment');
     Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+   
+
+    //chi tiết đơn hàng
+     Route::get('/list_oder', [OrderController::class, 'list_oders'])->name('oder.list');
+     Route::get('/list_oder/{id}', [OrderController::class, 'orderDetails'])->name('order.details');
+
+    //hủy đơn
+    Route::post('/order/cancel/{orderId}', [OrderController::class, 'cancelOrder'])->name('order.cancel');
+
+
+    //chi tiết đơn hàng admin
+     Route::get('/admin/list_oder', [OrderController::class, 'adminOrderList'])->name('oder.admin.list');
+
+     Route::get('/admin/orders/{id}', [OrderController::class, 'show_oder'])->name('order.show');
+
+     //xác nhận đơn
+
+     Route::patch('/admin/orders/{id}/confirm', [OrderController::class, 'confirmOrder'])->name('admin.orders.confirm');
+
+     //xóa
+     Route::delete('/admin/list_oder/{id}', [OrderController::class, 'destroy'])->name('admin.orders.destroy');
+
+
 });
 
 

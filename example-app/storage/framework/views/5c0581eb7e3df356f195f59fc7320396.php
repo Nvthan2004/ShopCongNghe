@@ -25,7 +25,7 @@
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Tên đăng nhập</label>
                                     <input type="text" name="username" class="form-control"
-                                        value="<?php echo e(old('username', auth()->user()->username)); ?>"readonly>
+                                        value="<?php echo e(old('username', auth()->user()->username)); ?>" readonly>
                                 </div>
 
                                 <!-- Email -->
@@ -70,7 +70,18 @@
                                 <div class="mb-3 w-100">
                                     <label for="avatar" class="form-label">Thay ảnh đại diện</label>
                                     <input type="file" name="avatar" class="form-control">
+                                    <?php $__errorArgs = ['avatar'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <div class="text-danger mt-1"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
+
                             </div>
                         </div>
 

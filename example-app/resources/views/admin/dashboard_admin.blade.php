@@ -90,7 +90,7 @@
         <a href="{{ route('admin.product') }}">Products</a>
         <a href="{{ route('admin.category')}}">Categorys</a>
         <a href="{{ route('admin.brand') }}">Brands</a>
-        <a href="#">Revenue</a>
+        <a href="{{ route('oder.admin.list') }}">Order</a>
         <a href="#">Settings</a>
 </div>
 
