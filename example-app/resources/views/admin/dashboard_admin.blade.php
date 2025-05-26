@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
   <style>
     body {
       min-height: 100vh;
@@ -54,7 +56,7 @@
   
     <!-- Search bar -->
     <form class="d-none d-md-flex mx-auto" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+      <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search" />
       <button class="btn btn-outline-light" type="submit">Search</button>
     </form>
   
@@ -69,7 +71,7 @@
       </li>
       <!-- Tên người dùng -->
       <li class="nav-item me-3 d-flex align-items-center">
-        <img src="{{ asset('storage/' . Auth::user()->img) }}" class="rounded-circle me-2" width="40" height="40" alt="Avatar">
+        <img src="{{ asset('storage/' . Auth::user()->img) }}" class="rounded-circle me-2" width="40" height="40" alt="Avatar" />
         <span class="text-white">{{ Auth::user()->username }}</span>
       </li>
       <!-- Nút logout -->
@@ -88,11 +90,11 @@
         <a href="{{ route('admin.home') }}">Dashboard</a>
         <a href="{{ route('admin.user') }}">Users</a>
         <a href="{{ route('admin.product') }}">Products</a>
-        <a href="{{ route('admin.category')}}">Categorys</a>
+        <a href="{{ route('admin.category') }}">Categorys</a>
         <a href="{{ route('admin.brand') }}">Brands</a>
         <a href="{{ route('oder.admin.list') }}">Order</a>
         <a href="#">Settings</a>
-</div>
+      </div>
 
       <!-- Main Content -->
       <div class="col-md-10 p-4">
@@ -107,5 +109,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  @yield('scripts')  <!-- Đúng vị trí: trước </body> để chèn JS từ view con -->
 </body>
 </html>

@@ -65,7 +65,7 @@
                                             <div class="card-body">
                                                 <h5 class="card-title"><?php echo e($product->name); ?></h5>
                                                 <p class="card-text"><?php echo e($product->description); ?></p>
-                                                <a href="<?php echo e(route('product.show', $product->id)); ?>" class="btn btn-primary w-100">Mua ngay</a>
+                                                <a href="<?php echo e(route('product.show', $product->id)); ?>" class="btn btn-primary w-100">Xem chi tiết</a>
                                             </div>
                                         </div>
                                     </div>
