@@ -8,10 +8,10 @@
     <div class="alert alert-success"><?php echo e(session('success')); ?></div>
     <?php endif; ?>
     <?php if(session('error')): ?>
-        <div class="alert alert-danger">
+    <div class="alert alert-danger">
         <?php echo e(session('error')); ?>
 
-        </div>
+    </div>
     <?php endif; ?>
 
     <!-- Add Brand Button -->
@@ -44,14 +44,13 @@
                     <?php endif; ?>
                 </td>
                 <td>
-                <a href="<?php echo e(route('brands.edit', $brand->id)); ?>" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="<?php echo e(route('brands.edit', $brand->id)); ?>" class="btn btn-warning btn-sm">Edit</a>
                     <form action="<?php echo e(route('brands.destroy', $brand->id)); ?>" method="POST" class="d-inline">
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('DELETE'); ?>
                         <button type="submit" class="btn btn-danger btn-sm"
                             onclick="return confirm('Are you sure?')">Delete</button>
                     </form>
-
                 </td>
             </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
@@ -63,5 +62,22 @@
     </table>
 </div>
 
+<!-- Script tự động reload các tab khi có cập nhật -->
+<script>
+// Khi xóa thành công, đặt cờ trong localStorage
+<?php if(session('success') && request()->is('admin/brands*')): ?>
+    localStorage.setItem('brand_updated', 'true');
+<?php endif; ?>
+
+// Lắng nghe thay đổi storage giữa các tab
+window.addEventListener('storage', function(event) {
+    if (event.key === 'brand_updated' && event.newValue === 'true') {
+        localStorage.removeItem('brand_updated');
+        location.reload();
+    }
+});
+</script>
+
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\ĐỒ ÁN BACKEND2\ShopCongNghe\example-app\resources\views/admin/crud_brand/list_brand.blade.php ENDPATH**/ ?>

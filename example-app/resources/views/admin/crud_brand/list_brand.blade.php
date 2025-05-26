@@ -1,6 +1,5 @@
 @extends('admin.dashboard_admin')
 
-
 @section('content')
 
 <div class="container mt-5">
@@ -11,9 +10,9 @@
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
     @if (session('error'))
-        <div class="alert alert-danger">
+    <div class="alert alert-danger">
         {{ session('error') }}
-        </div>
+    </div>
     @endif
 
     <!-- Add Brand Button -->
@@ -46,14 +45,13 @@
                     @endif
                 </td>
                 <td>
-                <a href="{{ route('brands.edit', $brand->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{{ route('brands.edit', $brand->id) }}" class="btn btn-warning btn-sm">Edit</a>
                     <form action="{{ route('brands.destroy', $brand->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm"
                             onclick="return confirm('Are you sure?')">Delete</button>
                     </form>
-
                 </td>
             </tr>
             @empty
@@ -64,5 +62,21 @@
         </tbody>
     </table>
 </div>
+
+<!-- Script tự động reload các tab khi có cập nhật -->
+<script>
+// Khi xóa thành công, đặt cờ trong localStorage
+@if(session('success') && request()->is('admin/brands*'))
+    localStorage.setItem('brand_updated', 'true');
+@endif
+
+// Lắng nghe thay đổi storage giữa các tab
+window.addEventListener('storage', function(event) {
+    if (event.key === 'brand_updated' && event.newValue === 'true') {
+        localStorage.removeItem('brand_updated');
+        location.reload();
+    }
+});
+</script>
 
 @endsection
