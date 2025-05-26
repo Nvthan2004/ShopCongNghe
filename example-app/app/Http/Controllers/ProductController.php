@@ -136,7 +136,14 @@ class ProductController extends Controller
     if (!$categoryId || !$brandId) {
         return back()->withErrors(['category' => 'Danh mục hoặc thương hiệu không hợp lệ.']);
     }
+ $duplicate = Product::where('name', $request->input('name'))
+        ->where('category_id', $categoryId)
+        ->where('brand_id', $brandId)
+        ->first();
 
+    if ($duplicate) {
+        return back()->withErrors(['Sản phẩm đã tồn tại trong hệ thống.'])->withInput();
+    }
     // Gán ID vào dữ liệu được validate
     $validatedData['category_id'] = $categoryId;
     $validatedData['brand_id'] = $brandId;
