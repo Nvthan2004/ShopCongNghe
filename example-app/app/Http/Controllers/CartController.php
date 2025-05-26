@@ -114,7 +114,7 @@ public function updateQuantity(Request $request, $user_id, $product_id)
 {
     // Validate input
     $request->validate([
-        'soluong' => 'required|integer|min:1',
+        'soluong' => 'required|integer|min:1|max:100',
     ]);
 
     $newQuantity = $request->input('soluong');
@@ -151,6 +151,18 @@ public function updateQuantity(Request $request, $user_id, $product_id)
 public function delete($userId, $productId)
 {
     try {
+        // Kiểm tra xem sản phẩm có trong giỏ hàng hay không
+        $exists = DB::table('carts')
+            ->where('id_user', $userId)
+            ->where('id_product', $productId)
+            ->exists();
+
+        if (!$exists) {
+            // Nếu sản phẩm không tồn tại trong giỏ hàng
+            return redirect()->back()->with('error', 'Sản phẩm không tồn tại trong giỏ hàng.');
+        }
+
+        // Xóa sản phẩm khỏi giỏ hàng
         DB::table('carts')
             ->where('id_user', $userId)
             ->where('id_product', $productId)
@@ -161,6 +173,7 @@ public function delete($userId, $productId)
         return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
     }
 }
+
 
 
 

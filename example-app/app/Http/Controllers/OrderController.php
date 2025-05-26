@@ -234,17 +234,32 @@ public function list_oders(Request $request)
 
     public function store(Request $request)
 {
+    // Lấy danh sách mã tỉnh thành từ API
+    $response = Http::withoutVerifying()->get('https://provinces.open-api.vn/api/');
+    $provinces = $response->json();
+
+    // Lấy danh sách mã tỉnh thành hợp lệ
+    $validCityCodes = collect($provinces)->pluck('code')->toArray();
+
+    // Xác thực dữ liệu
     $request->validate([
         'firstName' => 'required|string|max:255',
         'lastName'  => 'required|string|max:255',
-        'email'     => 'required|email',
+        'email'     => ['required', 'email', 'regex:/^[a-zA-Z0-9._%+-]+@gmail\.com$/'], // Email phải kết thúc bằng @gmail.com
         'phone'     => ['required', 'regex:/^0[0-9]{9,10}$/'], // Bắt đầu bằng 0, 10 hoặc 11 số
         'city'      => 'required',
         'address'   => 'required|string|max:500',
     ], [
-        'phone.required' => 'Số điện thoại không được để trống',
+        'email.regex'    => 'Email phải kết thúc bằng @gmail.com.',
+        'phone.required' => 'Số điện thoại không được để trống.',
         'phone.regex'    => 'Số điện thoại không hợp lệ. Phải bắt đầu bằng 0 và có 10 hoặc 11 chữ số.',
+        'city.required'  => 'Tỉnh/Thành phố không được để trống.',
     ]);
+
+    // Kiểm tra mã tỉnh thành hợp lệ
+    if (!in_array($request->city, $validCityCodes)) {
+        return back()->withErrors(['city' => 'Mã tỉnh thành không hợp lệ.']);
+    }
 
     $user = Auth::user();
 
