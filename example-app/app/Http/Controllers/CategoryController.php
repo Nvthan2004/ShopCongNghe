@@ -24,9 +24,32 @@ class CategoryController extends Controller{
 
 public function create_cate(Request $request)
 {
+    // Trim trước khi validate
+    $request->merge(['name' => trim($request->name)]);
+
     $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'slug' => 'nullable|string|max:255',
+        'name' => [
+            
+            'string',
+            'max:100',
+            function ($attribute, $value, $fail) {
+                // Không cho khoảng trắng rỗng hoặc toàn khoảng trắng
+                if (preg_match('/^\s*$/u', $value)) {
+                    $fail('Tên không được để trống hoặc chỉ chứa khoảng trắng.');
+                }
+
+                // Không cho ký tự đặc biệt hoặc số
+                if (preg_match('/[^\p{L}\s]/u', $value)) {
+                    $fail('Tên không được chứa ký tự đặc biệt hoặc số.');
+                }
+
+                // Kiểm tra trùng tên
+                if (Category::where('name', $value)->exists()) {
+                    $fail('Tên danh mục đã tồn tại.');
+                }
+            }
+        ],
+        'slug' => 'nullable|string', // bỏ kiểm tra max:255 để không hiện thông báo này nữa
         'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
@@ -37,11 +60,14 @@ public function create_cate(Request $request)
 
         Category::create($validatedData);
 
-        return redirect()->route('admin.category')->with('success', 'Category added successfully!');
+        return redirect()->route('admin.category')->with('success', 'Thêm danh mục thành công!');
     } catch (\Exception $e) {
-        return back()->withErrors(['error' => 'An error occurred while creating the category. Please try again.']);
+        return back()->withErrors(['error' => 'Vui lòng nhập đầy đủ thông tin']);
     }
 }
+
+
+
 
 public function products()
 {
