@@ -69,7 +69,7 @@
 
                                 <div class="mb-3 w-100">
                                     <label for="avatar" class="form-label">Thay ảnh đại diện</label>
-                                    <input type="file" name="avatar" class="form-control">
+                                    <input type="file" name="avatar" class="form-control" accept="image/*">
                                     <?php $__errorArgs = ['avatar'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -109,17 +109,31 @@ unset($__errorArgs, $__bag); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
             </div>
             <div class="modal-body">
+
+                
+                <?php if($errors->any()): ?>
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </ul>
+                </div>
+                <?php endif; ?>
+
                 <div class="mb-3">
                     <label for="current_password" class="form-label">Mật khẩu hiện tại</label>
                     <input type="password" name="current_password" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="new_password" class="form-label">Mật khẩu mới</label>
-                    <input type="password" name="new_password" class="form-control" required>
+                    <input type="password" name="new_password" class="form-control" required minlength="8"
+                        maxlength="32">
                 </div>
                 <div class="mb-3">
                     <label for="new_password_confirmation" class="form-label">Xác nhận mật khẩu mới</label>
-                    <input type="password" name="new_password_confirmation" class="form-control" required>
+                    <input type="password" name="new_password_confirmation" class="form-control" required minlength="8"
+                        maxlength="32">
                 </div>
             </div>
             <div class="modal-footer">
@@ -129,6 +143,7 @@ unset($__errorArgs, $__bag); ?>
         </form>
     </div>
 </div>
+
 <!-- Modal thay đổi Email -->
 <!-- Modal thay đổi Email -->
 <div class="modal fade" id="changeEmailModal" tabindex="-1" aria-labelledby="changeEmailModalLabel" aria-hidden="true">
@@ -162,4 +177,22 @@ document.getElementById('edit-email-btn').addEventListener('click', function() {
 });
 </script>
 <?php $__env->stopSection(); ?>
+<?php if($errors->any()): ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = new bootstrap.Modal(document.getElementById('changePasswordModal'));
+    modal.show();
+});
+</script>
+<?php endif; ?>
+<?php $__errorArgs = ['avatar'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+<div class="text-danger mt-1"><?php echo e($message); ?></div>
+<?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
 <?php echo $__env->make('user.dashboard_user', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\ShopCongNghe\example-app\resources\views/user/setting.blade.php ENDPATH**/ ?>

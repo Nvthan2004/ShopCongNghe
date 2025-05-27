@@ -71,7 +71,7 @@
 
                                 <div class="mb-3 w-100">
                                     <label for="avatar" class="form-label">Thay ảnh đại diện</label>
-                                    <input type="file" name="avatar" class="form-control">
+                                    <input type="file" name="avatar" class="form-control" accept="image/*">
                                     @error('avatar')
                                     <div class="text-danger mt-1">{{ $message }}</div>
                                     @enderror
@@ -104,17 +104,31 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
             </div>
             <div class="modal-body">
+
+                {{-- Hiển thị lỗi --}}
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
                 <div class="mb-3">
                     <label for="current_password" class="form-label">Mật khẩu hiện tại</label>
                     <input type="password" name="current_password" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="new_password" class="form-label">Mật khẩu mới</label>
-                    <input type="password" name="new_password" class="form-control" required>
+                    <input type="password" name="new_password" class="form-control" required minlength="8"
+                        maxlength="32">
                 </div>
                 <div class="mb-3">
                     <label for="new_password_confirmation" class="form-label">Xác nhận mật khẩu mới</label>
-                    <input type="password" name="new_password_confirmation" class="form-control" required>
+                    <input type="password" name="new_password_confirmation" class="form-control" required minlength="8"
+                        maxlength="32">
                 </div>
             </div>
             <div class="modal-footer">
@@ -124,6 +138,7 @@
         </form>
     </div>
 </div>
+
 <!-- Modal thay đổi Email -->
 <!-- Modal thay đổi Email -->
 <div class="modal fade" id="changeEmailModal" tabindex="-1" aria-labelledby="changeEmailModalLabel" aria-hidden="true">
@@ -157,3 +172,14 @@ document.getElementById('edit-email-btn').addEventListener('click', function() {
 });
 </script>
 @endsection
+@if ($errors->any())
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = new bootstrap.Modal(document.getElementById('changePasswordModal'));
+    modal.show();
+});
+</script>
+@endif
+@error('avatar')
+<div class="text-danger mt-1">{{ $message }}</div>
+@enderror
