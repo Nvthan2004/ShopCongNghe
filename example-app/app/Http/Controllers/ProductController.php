@@ -219,19 +219,18 @@ class ProductController extends Controller
     
 
     // Xóa sản phẩm
-    public function destroy($id)
-    {
-        $product = Product::findOrFail($id);
-    
-        // Xóa ảnh nếu có
-        if ($product->image) {
-            Storage::delete('public/' . $product->image);
-        }
-    
-        $product->delete();
-    
-        return redirect()->route('admin.product')->with('success', 'Xóa sản phẩm thành công!');
+   public function destroy($id)
+{
+    $product = Product::find($id);
+
+    if (!$product) {
+        return redirect()->back()->with('error', 'Sản phẩm không tồn tại hoặc đã bị xóa.');
     }
+
+    $product->delete();
+    return redirect()->back()->with('success', 'Xóa sản phẩm thành công!');
+}
+
     //tim kiem
     
     public function search(Request $request)
