@@ -58,3 +58,16 @@
     </form>
 </div>
 @endsection
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        form.addEventListener('submit', function () {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Đang xử lý...';
+        });
+    });
+</script>
+@endsection
