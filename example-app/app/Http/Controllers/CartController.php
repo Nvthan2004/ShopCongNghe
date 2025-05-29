@@ -148,8 +148,12 @@ public function updateQuantity(Request $request, $user_id, $product_id)
         ->update(['soluong' => $newQuantity]);
 
     if (!$updated) {
-        return response()->json(['success' => false, 'message' => 'Không tìm thấy sản phẩm trong giỏ hàng.'], 404);
-    }
+    return response()->json([
+        'success' => false,
+        'reload' => true,
+        'message' => 'Không tìm thấy sản phẩm trong giỏ hàng. Trang sẽ được tải lại để đồng bộ.'
+    ], 200);
+}
 
     // Lấy thông tin sản phẩm để trả về
     $product = DB::table('products')->where('id', $product_id)->first();
