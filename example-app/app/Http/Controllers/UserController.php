@@ -47,7 +47,12 @@ class UserController extends Controller{
 {
     $request->validate([
         'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+    ],
+[
+    'avatar.image' => 'File tải lên phải là ảnh.',
+    'avatar.mimes' => 'Chỉ chấp nhận các định dạng ảnh: jpeg, jpg, png, gif.',
+    'avatar.max' => 'Ảnh không được vượt quá 2MB.',
+]);
 
     $user = auth()->user();
 
@@ -77,7 +82,12 @@ class UserController extends Controller{
 {
     $request->validate([
         'current_password' => ['required', 'current_password'],
-        'new_password' => ['required', 'string', 'min:6', 'confirmed'],
+        'new_password' => ['required', 'string', 'min:6','max:50', 'confirmed'],
+    ],[
+        'new_password.required' => 'Vui lòng nhập mật khẩu mới.',
+    'new_password.min' => 'Mật khẩu phải có ít nhất 8 ký tự.',
+    'new_password.max' => 'Mật khẩu không được vượt quá 50 ký tự.',
+    'new_password.confirmed' => 'Xác nhận mật khẩu không khớp.',
     ]);
 
     $user = auth()->user();
