@@ -15,7 +15,15 @@
                 <li>Bộ nhớ: <?php echo e($product->storage); ?>GB</li>
                 <li>Pin: <?php echo e($product->battery); ?>mAh</li>
             </ul>
-            <button class="btn btn-primary mt-3">Mua Ngay</button>
+            <form id="add-to-cart-form-<?php echo e($product->id); ?>" class="add-to-cart-form"
+      action="<?php echo e(route('cart.add')); ?>" method="POST">
+    <?php echo csrf_field(); ?>
+    <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
+    <button type="submit" class="btn btn-success btn-sm w-100 rounded-3 shadow-sm">
+        <i class="bi bi-cart-plus me-2"></i> Thêm vào giỏ hàng
+    </button>
+</form>
+
         </div>
     </div>
 

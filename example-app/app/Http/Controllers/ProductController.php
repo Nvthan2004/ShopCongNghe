@@ -136,7 +136,14 @@ class ProductController extends Controller
     if (!$categoryId || !$brandId) {
         return back()->withErrors(['category' => 'Danh mục hoặc thương hiệu không hợp lệ.']);
     }
+ $duplicate = Product::where('name', $request->input('name'))
+        ->where('category_id', $categoryId)
+        ->where('brand_id', $brandId)
+        ->first();
 
+    if ($duplicate) {
+        return back()->withErrors(['Sản phẩm đã tồn tại trong hệ thống.'])->withInput();
+    }
     // Gán ID vào dữ liệu được validate
     $validatedData['category_id'] = $categoryId;
     $validatedData['brand_id'] = $brandId;
@@ -212,19 +219,18 @@ class ProductController extends Controller
     
 
     // Xóa sản phẩm
-    public function destroy($id)
-    {
-        $product = Product::findOrFail($id);
-    
-        // Xóa ảnh nếu có
-        if ($product->image) {
-            Storage::delete('public/' . $product->image);
-        }
-    
-        $product->delete();
-    
-        return redirect()->route('admin.product')->with('success', 'Xóa sản phẩm thành công!');
+   public function destroy($id)
+{
+    $product = Product::find($id);
+
+    if (!$product) {
+        return redirect()->back()->with('error', 'Sản phẩm không tồn tại hoặc đã bị xóa.');
     }
+
+    $product->delete();
+    return redirect()->back()->with('success', 'Xóa sản phẩm thành công!');
+}
+
     //tim kiem
     
     public function search(Request $request)
