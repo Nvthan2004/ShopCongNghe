@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 
 class PaymentController extends Controller
 {
-  public function payment()
+ public function payment()
 {
     $user = auth()->user();
     $userId = auth()->id();
@@ -24,6 +24,13 @@ class PaymentController extends Controller
         return back()->with('error', 'Giỏ hàng của bạn trống. Không thể thực hiện thanh toán.');
     }
 
+    // Kiểm tra sản phẩm nào trong giỏ hàng không tồn tại
+    foreach ($carts as $cart) {
+        if (!$cart->product) {
+            return back()->with('error', 'Một số sản phẩm trong giỏ hàng không còn tồn tại.');
+        }
+    }
+
     // Tính tổng giá trị đơn hàng
     $totalPrice = $carts->reduce(function ($total, $cart) {
         return $total + ($cart->product->price * $cart->soluong);
@@ -34,13 +41,11 @@ class PaymentController extends Controller
 
     $cities = [];
     if ($response->successful()) {
-        $cities = $response->json(); // Dữ liệu trả về dạng JSON
+        $cities = $response->json();
     } else {
-        // Nếu không lấy được danh sách tỉnh/thành phố, hiển thị lỗi
         return back()->withErrors(['error' => 'Không thể lấy danh sách tỉnh/thành phố']);
     }
 
-    // Truyền cả giỏ hàng và danh sách tỉnh/thành phố sang view
     return view('user.payment', [
         'carts' => $carts,
         'totalPrice' => $totalPrice,

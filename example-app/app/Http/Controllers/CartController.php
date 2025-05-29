@@ -101,9 +101,8 @@ public function addToCart(Request $request)
 
 
     // hiển thị cart
-    public function showCart()
+public function showCart()
 {
-    // Kiểm tra người dùng đã đăng nhập
     if (!auth()->check()) {
         return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để xem giỏ hàng.');
     }
@@ -111,12 +110,26 @@ public function addToCart(Request $request)
     $user = Auth::user();
     $id_user = auth()->id();
 
-    // Lấy thông tin giỏ hàng của người dùng hiện tại
-    $cartItems = Cart::where('id_user', $id_user)
-                     ->with('product') // Load thông tin sản phẩm liên quan
-                     ->get();
+    // Lấy danh sách cart của user
+    $cartItems = Cart::where('id_user', $id_user)->get();
 
-    return view('user.cart', compact('cartItems','user'));
+    foreach ($cartItems as $item) {
+        // Kiểm tra sản phẩm có tồn tại không
+        $product = Product::find($item->id_product);
+        if (!$product) {
+            // Nếu không tồn tại thì xóa mục cart đó
+            Cart::where('id_user', $id_user)
+                ->where('id_product', $item->id_product)
+                ->delete();
+        }
+    }
+
+    // Sau khi xóa những mục không hợp lệ, lấy lại danh sách cart kèm sản phẩm
+    $cartItems = Cart::where('id_user', $id_user)
+                          ->with('product')
+                          ->get();
+
+    return view('user.cart', compact('cartItems', 'user'));
 }
 
 public function updateQuantity(Request $request, $user_id, $product_id)
