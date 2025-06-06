@@ -56,5 +56,18 @@
     </form>
 </div>
 <?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        form.addEventListener('submit', function () {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Đang xử lý...';
+        });
+    });
+</script>
+<?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('admin.dashboard_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\ĐỒ ÁN BACKEND2\ShopCongNghe\example-app\resources\views/admin/crud_product/add_product.blade.php ENDPATH**/ ?>

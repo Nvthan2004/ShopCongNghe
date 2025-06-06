@@ -154,39 +154,47 @@ function updateQuantity(userId, productId, inputElement) {
     }
 
     fetch(`/cart/update/${userId}/${productId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            },
-            body: JSON.stringify({
-                soluong: newQuantity,
-            }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.success) {
-                alert('Có lỗi xảy ra: ' + data.message);
-                if (cartItem) {
-                    cartItem.style.opacity = '1';
-                }
-            } else {
-                if (cartItem) {
-                    cartItem.style.opacity = '1';
-                }
-                // Cập nhật UI chỉ cho sản phẩm cụ thể
-                updateCartItemUI(productId, newQuantity);
-                // Cập nhật tổng đơn hàng
-                updateOrderSummary();
-            }
-        })
-        .catch(error => {
-            console.error('Lỗi:', error);
-            alert('Không thể cập nhật số lượng. Vui lòng thử lại sau.');
-            if (cartItem) {
-                cartItem.style.opacity = '1';
-            }
-        });
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    },
+    body: JSON.stringify({
+        soluong: newQuantity,
+    }),
+})
+.then(response => response.json())
+.then(data => {
+    if (!data.success) {
+        alert('Có lỗi xảy ra: ' + data.message);
+
+        // Nếu server yêu cầu reload thì reload lại trang
+        if (data.reload) {
+            location.reload();
+            return;
+        }
+
+        if (cartItem) {
+            cartItem.style.opacity = '1';
+        }
+    } else {
+        if (cartItem) {
+            cartItem.style.opacity = '1';
+        }
+        // Cập nhật UI chỉ cho sản phẩm cụ thể
+        updateCartItemUI(productId, newQuantity);
+        // Cập nhật tổng đơn hàng
+        updateOrderSummary();
+    }
+})
+.catch(error => {
+    console.error('Lỗi:', error);
+    alert('Không thể cập nhật số lượng. Vui lòng thử lại sau.');
+    if (cartItem) {
+        cartItem.style.opacity = '1';
+    }
+});
+
 }
 
 // Cập nhật UI của một sản phẩm cụ thể
